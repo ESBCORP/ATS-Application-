@@ -25,6 +25,9 @@ import Input from '../../components/ui/Input';
 import { fetchJobs } from '../../services/jobsService';
 import { Job, QAItem } from '../../types';
 
+
+
+
 const VideoInterviewSettings: React.FC = () => {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('templates');
@@ -112,7 +115,8 @@ const VideoInterviewSettings: React.FC = () => {
       name: 'Jack',
       role: 'Technical Interviewer',
       voice: 'en-US-GuyNeural',
-      avatar: 'https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg?auto=compress&cs=tinysrgb&w=150',
+      avatar: '/image1.png',
+
       personality: 'Professional and technical, asks follow-up questions',
       interviewStyle: 'Structured technical assessment'
     },
@@ -283,198 +287,204 @@ const VideoInterviewSettings: React.FC = () => {
     const selectedJob = jobs.find(job => job.id === formData.jobId);
 
     return (
-      <div className="bg-white rounded-lg shadow-lg p-6">
-        <h3 className="text-lg font-semibold mb-4">
-          {template?.id ? 'Edit Interview Template' : 'Create New Interview Template'}
-        </h3>
-        
-        <div className="space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <Input
-              label="Template Name"
-              value={formData.name}
-              onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
-              placeholder="e.g., Technical Interview"
-            />
-            
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Job Position</label>
-              <select
-                value={formData.jobId}
-                onChange={(e) => {
-                  const selectedJob = jobs.find(job => job.id === e.target.value);
-                  setFormData(prev => ({ 
-                    ...prev, 
-                    jobId: e.target.value,
-                    jobTitle: selectedJob?.title || prev.jobTitle
-                  }));
-                }}
-                className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
-              >
-                <option value="">Select job position...</option>
-                {jobs.map(job => (
-                  <option key={job.id} value={job.id}>{job.title}</option>
-                ))}
-              </select>
-            </div>
-          </div>
+     <div className="p-6 bg-white rounded-lg shadow-lg dark:bg-gray-800">
+  <h3 className="mb-4 text-lg font-semibold text-gray-900 dark:text-white">
+    {template?.id ? 'Edit Interview Template' : 'Create New Interview Template'}
+  </h3>
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
-            <textarea
-              value={formData.description}
-              onChange={(e) => setFormData(prev => ({ ...prev, description: e.target.value }))}
-              rows={2}
-              className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
-              placeholder="Describe the purpose of this interview template"
-            />
-          </div>
+  <div className="space-y-6">
+    <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+      <Input
+        label="Template Name"
+        value={formData.name}
+        onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
+        placeholder="e.g., Technical Interview"
+      />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">AI Interviewer</label>
-              <select
-                value={formData.aiInterviewer}
-                onChange={(e) => setFormData(prev => ({ ...prev, aiInterviewer: e.target.value }))}
-                className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
-              >
-                {aiProfiles.map(profile => (
-                  <option key={profile.id} value={profile.name}>{profile.name} ({profile.role})</option>
-                ))}
-              </select>
-            </div>
-            
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">AI Voice</label>
-              <select
-                value={formData.aiVoice}
-                onChange={(e) => setFormData(prev => ({ ...prev, aiVoice: e.target.value }))}
-                className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
-              >
-                <option value="en-US-GuyNeural">Guy (Male)</option>
-                <option value="en-US-JennyNeural">Jenny (Female)</option>
-                <option value="en-US-DavisNeural">Davis (Male)</option>
-                <option value="en-US-AriaNeural">Aria (Female)</option>
-              </select>
-            </div>
-          </div>
+      <div>
+        <label className="block mb-1 text-sm font-medium text-gray-700 dark:text-gray-300">Job Position</label>
+        <select
+          value={formData.jobId}
+          onChange={(e) => {
+            const selectedJob = jobs.find(job => job.id === e.target.value);
+            setFormData(prev => ({ 
+              ...prev, 
+              jobId: e.target.value,
+              jobTitle: selectedJob?.title || prev.jobTitle
+            }));
+          }}
+          className="w-full px-3 py-2 text-sm text-gray-900 bg-white border border-gray-300 rounded-md dark:border-gray-600 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
+        >
+          <option value="">Select job position...</option>
+          {jobs.map(job => (
+            <option key={job.id} value={job.id}>{job.title}</option>
+          ))}
+        </select>
+      </div>
+    </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <Input
-              label="Interview Duration (minutes)"
-              type="number"
-              value={formData.duration}
-              onChange={(e) => setFormData(prev => ({ ...prev, duration: parseInt(e.target.value) }))}
-            />
-            
-            <Input
-              label="Max Response Time (seconds)"
-              type="number"
-              value={formData.maxResponseTime}
-              onChange={(e) => setFormData(prev => ({ ...prev, maxResponseTime: parseInt(e.target.value) }))}
-            />
-          </div>
+    <div>
+      <label className="block mb-1 text-sm font-medium text-gray-700 dark:text-gray-300">Description</label>
+      <textarea
+        value={formData.description}
+        onChange={(e) => setFormData(prev => ({ ...prev, description: e.target.value }))}
+        rows={2}
+        className="w-full px-3 py-2 text-sm text-gray-900 bg-white border border-gray-300 rounded-md dark:border-gray-600 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
+        placeholder="Describe the purpose of this interview template"
+      />
+    </div>
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Introduction Script</label>
-            <textarea
-              value={formData.introScript}
-              onChange={(e) => setFormData(prev => ({ ...prev, introScript: e.target.value }))}
-              rows={3}
-              className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
-              placeholder="Script for the AI to introduce the interview"
-            />
-          </div>
+    <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+      <div>
+        <label className="block mb-1 text-sm font-medium text-gray-700 dark:text-gray-300">AI Interviewer</label>
+        <select
+          value={formData.aiInterviewer}
+          onChange={(e) => setFormData(prev => ({ ...prev, aiInterviewer: e.target.value }))}
+          className="w-full px-3 py-2 text-sm text-gray-900 bg-white border border-gray-300 rounded-md dark:border-gray-600 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
+        >
+          {aiProfiles.map(profile => (
+            <option key={profile.id} value={profile.name}>{profile.name} ({profile.role})</option>
+          ))}
+        </select>
+      </div>
 
-          <div>
-            <div className="flex items-center justify-between mb-2">
-              <label className="block text-sm font-medium text-gray-700">Interview Questions</label>
-              <div className="flex space-x-2">
-                {selectedJob && selectedJob.qaItems && selectedJob.qaItems.length > 0 && (
-                  <button
-                    onClick={() => {
-                      setFormData(prev => ({
-                        ...prev,
-                        questions: selectedJob.qaItems.map((qa, index) => ({
-                          id: `q${index + 1}`,
-                          question: qa.question,
-                          expectedKeywords: [],
-                          followUp: ''
-                        }))
-                      }));
-                    }}
-                    className="text-blue-600 hover:text-blue-800 text-sm flex items-center"
-                  >
-                    <Plus className="w-4 h-4 mr-1" />
-                    Import from Job
-                  </button>
-                )}
-                <button
-                  onClick={addQuestion}
-                  className="text-blue-600 hover:text-blue-800 text-sm flex items-center"
-                >
-                  <Plus className="w-4 h-4 mr-1" />
-                  Add Question
-                </button>
-              </div>
-            </div>
+      <div>
+        <label className="block mb-1 text-sm font-medium text-gray-700 dark:text-gray-300">AI Voice</label>
+        <select
+          value={formData.aiVoice}
+          onChange={(e) => setFormData(prev => ({ ...prev, aiVoice: e.target.value }))}
+          className="w-full px-3 py-2 text-sm text-gray-900 bg-white border border-gray-300 rounded-md dark:border-gray-600 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
+        >
+          <option value="en-US-GuyNeural">Guy (Male)</option>
+          <option value="en-US-JennyNeural">Jenny (Female)</option>
+          <option value="en-US-DavisNeural">Davis (Male)</option>
+          <option value="en-US-AriaNeural">Aria (Female)</option>
+        </select>
+      </div>
+    </div>
+
+    <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+      <Input
+        label="Interview Duration (minutes)"
+        type="number"
+        value={formData.duration}
+        onChange={(e) => setFormData(prev => ({ ...prev, duration: parseInt(e.target.value) }))}
+      />
+
+      <Input
+        label="Max Response Time (seconds)"
+        type="number"
+        value={formData.maxResponseTime}
+        onChange={(e) => setFormData(prev => ({ ...prev, maxResponseTime: parseInt(e.target.value) }))}
+      />
+    </div>
+
+    <div>
+      <label className="block mb-1 text-sm font-medium text-gray-700 dark:text-gray-300">Introduction Script</label>
+      <textarea
+        value={formData.introScript}
+        onChange={(e) => setFormData(prev => ({ ...prev, introScript: e.target.value }))}
+        rows={3}
+        className="w-full px-3 py-2 text-sm text-gray-900 bg-white border border-gray-300 rounded-md dark:border-gray-600 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
+        placeholder="Script for the AI to introduce the interview"
+      />
+    </div>
+
+    <div>
+      <div className="flex items-center justify-between mb-2">
+        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Interview Questions</label>
+        <div className="flex space-x-2">
+          {selectedJob && selectedJob.qaItems && selectedJob.qaItems.length > 0 && (
+            <button
+              onClick={() => {
+                setFormData(prev => ({
+                  ...prev,
+                  questions: selectedJob.qaItems.map((qa, index) => ({
+                    id: `q${index + 1}`,
+                    question: qa.question,
+                    expectedKeywords: [],
+                    followUp: ''
+                  }))
+                }));
+              }}
+              className="flex items-center text-sm text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
+            >
+              <Plus className="w-4 h-4 mr-1" />
+              Import from Job
+            </button>
+          )}
+          <button
+            onClick={addQuestion}
+            className="flex items-center text-sm text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
+          >
+            <Plus className="w-4 h-4 mr-1" />
+            Add Question
+          </button>
+        </div>
+      </div>
+
             
             <div className="space-y-4">
-              {formData.questions.map((question, index) => (
-                <div key={question.id} className="border border-gray-200 rounded-lg p-4">
-                  <div className="flex justify-between items-start mb-3">
-                    <span className="bg-blue-100 text-blue-800 text-xs font-medium px-2 py-1 rounded">Question {index + 1}</span>
-                    <button
-                      onClick={() => removeQuestion(index)}
-                      className="text-red-600 hover:text-red-800"
-                    >
-                      <Trash2 className="w-4 h-4" />
-                    </button>
+            {formData.questions.map((question, index) => (
+              <div
+                key={question.id}
+                className="p-4 bg-white border border-gray-200 rounded-lg dark:border-gray-600 dark:bg-gray-800"
+              >
+                <div className="flex items-start justify-between mb-3">
+                  <span className="px-2 py-1 text-xs font-medium text-blue-800 bg-blue-100 rounded dark:text-blue-200 dark:bg-blue-900">
+                    Question {index + 1}
+                  </span>
+                  <button
+                    onClick={() => removeQuestion(index)}
+                    className="text-red-600 hover:text-red-800 dark:text-red-400 dark:hover:text-red-300"
+                  >
+                    <Trash2 className="w-4 h-4" />
+                  </button>
+                </div>
+
+                <div className="space-y-3">
+                  <div>
+                    <label className="block mb-1 text-sm font-medium text-gray-700 dark:text-gray-300">Question</label>
+                    <textarea
+                      value={question.question}
+                      onChange={(e) => handleQuestionChange(index, 'question', e.target.value)}
+                      rows={2}
+                      className="w-full px-3 py-2 text-sm text-gray-900 bg-white border border-gray-300 rounded-md dark:border-gray-600 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
+                      placeholder="Enter interview question"
+                    />
                   </div>
-                  
-                  <div className="space-y-3">
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">Question</label>
-                      <textarea
-                        value={question.question}
-                        onChange={(e) => handleQuestionChange(index, 'question', e.target.value)}
-                        rows={2}
-                        className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
-                        placeholder="Enter interview question"
-                      />
-                    </div>
-                    
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">Expected Keywords (comma-separated)</label>
-                      <input
-                        type="text"
-                        value={question.expectedKeywords.join(', ')}
-                        onChange={(e) => handleKeywordsChange(index, e.target.value)}
-                        className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
-                        placeholder="e.g., java, spring, microservices"
-                      />
-                    </div>
-                    
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">Follow-up Question</label>
-                      <input
-                        type="text"
-                        value={question.followUp}
-                        onChange={(e) => handleQuestionChange(index, 'followUp', e.target.value)}
-                        className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
-                        placeholder="Optional follow-up question"
-                      />
-                    </div>
+
+                  <div>
+                    <label className="block mb-1 text-sm font-medium text-gray-700 dark:text-gray-300">Expected Keywords (comma-separated)</label>
+                    <input
+                      type="text"
+                      value={question.expectedKeywords.join(', ')}
+                      onChange={(e) => handleKeywordsChange(index, e.target.value)}
+                      className="w-full px-3 py-2 text-sm text-gray-900 bg-white border border-gray-300 rounded-md dark:border-gray-600 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
+                      placeholder="e.g., java, spring, microservices"
+                    />
                   </div>
+
+                  <div>
+                    <label className="block mb-1 text-sm font-medium text-gray-700 dark:text-gray-300">Follow-up Question</label>
+                    <input
+                      type="text"
+                      value={question.followUp}
+                      onChange={(e) => handleQuestionChange(index, 'followUp', e.target.value)}
+                      className="w-full px-3 py-2 text-sm text-gray-900 bg-white border border-gray-300 rounded-md dark:border-gray-600 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
+                      placeholder="Optional follow-up question"
+                    />
+                  </div>
+                </div>
                 </div>
               ))}
               
               {formData.questions.length === 0 && (
-                <div className="text-center py-8 border border-dashed border-gray-300 rounded-lg">
+                <div className="py-8 text-center border border-gray-300 border-dashed rounded-lg">
                   <p className="text-gray-500">No questions added yet</p>
                   <button
                     onClick={addQuestion}
-                    className="mt-2 text-blue-600 hover:text-blue-800 text-sm flex items-center mx-auto"
+                    className="flex items-center mx-auto mt-2 text-sm text-blue-600 hover:text-blue-800"
                   >
                     <Plus className="w-4 h-4 mr-1" />
                     Add Question
@@ -485,12 +495,12 @@ const VideoInterviewSettings: React.FC = () => {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Conclusion Script</label>
+            <label className="block mb-1 text-sm font-medium text-gray-700">Conclusion Script</label>
             <textarea
               value={formData.outroScript}
               onChange={(e) => setFormData(prev => ({ ...prev, outroScript: e.target.value }))}
               rows={3}
-              className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+              className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
               placeholder="Script for the AI to conclude the interview"
             />
           </div>
@@ -501,7 +511,7 @@ const VideoInterviewSettings: React.FC = () => {
               id="active-template"
               checked={formData.active}
               onChange={(e) => setFormData(prev => ({ ...prev, active: e.target.checked }))}
-              className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+              className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
             />
             <label htmlFor="active-template" className="ml-2 text-sm text-gray-700">
               Active (template will be available for interviews)
@@ -509,7 +519,7 @@ const VideoInterviewSettings: React.FC = () => {
           </div>
         </div>
 
-        <div className="flex justify-end space-x-2 mt-6">
+        <div className="flex justify-end mt-6 space-x-2">
           <Button
             variant="outline"
             onClick={onCancel}
@@ -562,156 +572,164 @@ const VideoInterviewSettings: React.FC = () => {
       />
 
       {success && (
-        <div className="rounded-md bg-green-50 p-4 border border-green-200">
+        <div className="p-4 border border-green-200 rounded-md bg-green-50">
           <div className="flex items-center">
-            <Check className="h-5 w-5 text-green-400 mr-3" />
+            <Check className="w-5 h-5 mr-3 text-green-400" />
             <div>
               <h3 className="text-sm font-medium text-green-800">Success</h3>
-              <p className="text-sm text-green-700 mt-1">{success}</p>
+              <p className="mt-1 text-sm text-green-700">{success}</p>
             </div>
           </div>
         </div>
       )}
 
       {error && (
-        <div className="rounded-md bg-red-50 p-4 border border-red-200">
+        <div className="p-4 border border-red-200 rounded-md bg-red-50">
           <div className="flex items-center">
-            <AlertCircle className="h-5 w-5 text-red-400 mr-3" />
+            <AlertCircle className="w-5 h-5 mr-3 text-red-400" />
             <div>
               <h3 className="text-sm font-medium text-red-800">Error</h3>
-              <p className="text-sm text-red-700 mt-1">{error}</p>
+              <p className="mt-1 text-sm text-red-700">{error}</p>
             </div>
           </div>
         </div>
       )}
 
       {/* Stats Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <div className="bg-white rounded-lg shadow p-6">
-          <div className="flex items-center">
-            <Video className="w-8 h-8 text-blue-600" />
-            <div className="ml-4">
-              <p className="text-sm font-medium text-gray-600">Total Interviews</p>
-              <p className="text-2xl font-bold text-gray-900">{analytics.totalInterviews}</p>
-            </div>
-          </div>
-        </div>
-        <div className="bg-white rounded-lg shadow p-6">
-          <div className="flex items-center">
-            <Users className="w-8 h-8 text-green-600" />
-            <div className="ml-4">
-              <p className="text-sm font-medium text-gray-600">Completion Rate</p>
-              <p className="text-2xl font-bold text-gray-900">{analytics.completionRate}%</p>
-            </div>
-          </div>
-        </div>
-        <div className="bg-white rounded-lg shadow p-6">
-          <div className="flex items-center">
-            <Clock className="w-8 h-8 text-yellow-600" />
-            <div className="ml-4">
-              <p className="text-sm font-medium text-gray-600">Avg Duration</p>
-              <p className="text-2xl font-bold text-gray-900">{analytics.avgDuration} min</p>
-            </div>
-          </div>
-        </div>
-        <div className="bg-white rounded-lg shadow p-6">
-          <div className="flex items-center">
-            <BarChart3 className="w-8 h-8 text-purple-600" />
-            <div className="ml-4">
-              <p className="text-sm font-medium text-gray-600">Keyword Match</p>
-              <p className="text-2xl font-bold text-gray-900">{analytics.keywordMatchRate}%</p>
-            </div>
-          </div>
+<div className="grid grid-cols-1 gap-6 md:grid-cols-4">
+  <div className="p-6 bg-white rounded-lg shadow dark:bg-gray-800 dark:shadow-lg">
+    <div className="flex items-center">
+      <Video className="w-8 h-8 text-blue-600" />
+      <div className="ml-4">
+        <p className="text-sm font-medium text-gray-600 dark:text-gray-300">Total Interviews</p>
+        <p className="text-2xl font-bold text-gray-900 dark:text-white">{analytics.totalInterviews}</p>
+      </div>
+    </div>
+  </div>
+
+  <div className="p-6 bg-white rounded-lg shadow dark:bg-gray-800 dark:shadow-lg">
+    <div className="flex items-center">
+      <Users className="w-8 h-8 text-green-600" />
+      <div className="ml-4">
+        <p className="text-sm font-medium text-gray-600 dark:text-gray-300">Completion Rate</p>
+        <p className="text-2xl font-bold text-gray-900 dark:text-white">{analytics.completionRate}%</p>
+      </div>
+    </div>
+  </div>
+
+  <div className="p-6 bg-white rounded-lg shadow dark:bg-gray-800 dark:shadow-lg">
+    <div className="flex items-center">
+      <Clock className="w-8 h-8 text-yellow-600" />
+      <div className="ml-4">
+        <p className="text-sm font-medium text-gray-600 dark:text-gray-300">Avg Duration</p>
+        <p className="text-2xl font-bold text-gray-900 dark:text-white">{analytics.avgDuration} min</p>
+      </div>
+    </div>
+  </div>
+
+  <div className="p-6 bg-white rounded-lg shadow dark:bg-gray-800 dark:shadow-lg">
+    <div className="flex items-center">
+      <BarChart3 className="w-8 h-8 text-purple-600" />
+      <div className="ml-4">
+        <p className="text-sm font-medium text-gray-600 dark:text-gray-300">Keyword Match</p>
+        <p className="text-2xl font-bold text-gray-900 dark:text-white">{analytics.keywordMatchRate}%</p>
+      </div>
+      </div>
         </div>
       </div>
 
-      {/* Tabs */}
-      <div className="bg-white rounded-lg shadow">
-        <div className="border-b border-gray-200">
-          <nav className="-mb-px flex space-x-8 px-6">
-            {[
-              { id: 'templates', label: 'Interview Templates', icon: Video },
-              { id: 'ai-profiles', label: 'AI Interviewers', icon: Bot },
-              { id: 'job-questions', label: 'Job Questions', icon: MessageSquare },
-              { id: 'settings', label: 'Global Settings', icon: Settings }
-            ].map((tab) => (
-              <button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
-                className={`py-4 px-1 border-b-2 font-medium text-sm flex items-center ${
-                  activeTab === tab.id
-                    ? 'border-blue-500 text-blue-600'
-                    : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-                }`}
-              >
-                <tab.icon className="w-4 h-4 mr-2" />
-                {tab.label}
-              </button>
-            ))}
-          </nav>
+    {/* Tabs */}
+<div className="bg-white rounded-lg shadow dark:bg-gray-900">
+  <div className="border-b border-gray-200 dark:border-gray-700">
+    <nav className="flex px-6 -mb-px space-x-8">
+      {[
+        { id: 'templates', label: 'Interview Templates', icon: Video },
+        { id: 'ai-profiles', label: 'AI Interviewers', icon: Bot },
+        { id: 'job-questions', label: 'Job Questions', icon: MessageSquare },
+        { id: 'settings', label: 'Global Settings', icon: Settings }
+      ].map((tab) => (
+        <button
+          key={tab.id}
+          onClick={() => setActiveTab(tab.id)}
+          className={`py-4 px-1 border-b-2 font-medium text-sm flex items-center ${
+            activeTab === tab.id
+              ? 'border-blue-500 text-blue-600 hover:text-blue-800 hover:underline dark:text-[#29D3C0] dark:border-[#29D3C0] dark:hover:text-[#29D3C0]'
+              : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-200 dark:hover:border-gray-600'
+          }`}
+        >
+          <tab.icon className="w-4 h-4 mr-2" />
+          {tab.label}
+        </button>
+      ))}
+    </nav>
+  </div>
+
+  <div className="p-6">
+    {/* Interview Templates Tab */}
+    {activeTab === 'templates' && !editingTemplate && (
+      <div>
+        <div className="flex items-center justify-between mb-6">
+          <h2 className="text-lg font-semibold text-gray-900 dark:text-white">Interview Templates</h2>
         </div>
 
-        <div className="p-6">
-          {/* Interview Templates Tab */}
-          {activeTab === 'templates' && !editingTemplate && (
-            <div>
-              <div className="flex justify-between items-center mb-6">
-                <h2 className="text-lg font-semibold">Interview Templates</h2>
-              </div>
+        <div className="space-y-4">
+          {interviewTemplates.map((template) => (
+            <div key={template.id} className="p-4 bg-white border border-gray-200 rounded-lg dark:border-gray-700 dark:bg-gray-800">
+              <div className="flex items-start justify-between">
+                <div className="flex-1">
+                  <div className="flex items-center mb-2 space-x-3">
+                    <h3 className="font-medium text-gray-900 dark:text-white">{template.name}</h3>
+                    <span className={`px-2 py-1 text-xs rounded-full ${
+                      template.active
+                        ? 'bg-green-100 text-green-800 dark:bg-green-200 dark:text-green-900'
+                        : 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300'
+                    }`}>
+                      {template.active ? 'Active' : 'Inactive'}
+                    </span>
+                    <span className="text-sm text-gray-500 dark:text-gray-400">
+                      Used {template.usageCount} times
+                    </span>
+                  </div>
+                  <p className="mb-2 text-sm text-gray-600 dark:text-gray-300">{template.description}</p>
+                  <p className="mb-2 text-sm text-gray-600 dark:text-gray-300">Job: {template.jobTitle}</p>
 
-              <div className="space-y-4">
-                {interviewTemplates.map((template) => (
-                  <div key={template.id} className="border border-gray-200 rounded-lg p-4">
-                    <div className="flex justify-between items-start">
-                      <div className="flex-1">
-                        <div className="flex items-center space-x-3 mb-2">
-                          <h3 className="font-medium text-gray-900">{template.name}</h3>
-                          <span className={`px-2 py-1 text-xs rounded-full ${
-                            template.active ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'
-                          }`}>
-                            {template.active ? 'Active' : 'Inactive'}
-                          </span>
-                          <span className="text-sm text-gray-500">
-                            Used {template.usageCount} times
-                          </span>
+                  <div className="mt-3">
+                    <p className="mb-2 text-xs font-medium text-gray-700 dark:text-gray-300">Questions:</p>
+                    <div className="space-y-2">
+                      {template.questions.map((question, idx) => (
+                        <div
+                          key={idx}
+                          className="p-2 text-xs text-gray-900 border border-gray-200 rounded dark:border-gray-700 bg-gray-50 dark:bg-gray-700 dark:text-white"
+                        >
+                          <p className="font-medium">{question.question}</p>
+                          {question.followUp && (
+                            <p className="mt-1 text-gray-600 dark:text-gray-300">Follow-up: {question.followUp}</p>
+                          )}
                         </div>
-                        <p className="text-sm text-gray-600 mb-2">{template.description}</p>
-                        <p className="text-sm text-gray-600 mb-2">Job: {template.jobTitle}</p>
-                        
-                        <div className="mt-3">
-                          <p className="text-xs font-medium text-gray-700 mb-2">Questions:</p>
-                          <div className="space-y-2">
-                            {template.questions.map((question, idx) => (
-                              <div key={idx} className="text-xs bg-gray-50 p-2 rounded border border-gray-200">
-                                <p className="font-medium">{question.question}</p>
-                                {question.followUp && (
-                                  <p className="mt-1 text-gray-600">Follow-up: {question.followUp}</p>
-                                )}
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                      </div>
-                      <div className="flex space-x-2 ml-4">
-                        <button
-                          onClick={() => setEditingTemplate(template)}
-                          className="p-2 text-blue-600 hover:text-blue-800"
-                        >
-                          <Edit3 className="w-4 h-4" />
-                        </button>
-                        <button 
-                          className="p-2 text-green-600 hover:text-green-800"
-                          onClick={() => navigate(`/video/preview/${template.id}`)}
-                        >
-                          <Play className="w-4 h-4" />
-                        </button>
-                        <button 
-                          className="p-2 text-red-600 hover:text-red-800"
-                          onClick={() => handleDeleteTemplate(template.id)}
-                        >
-                          <Trash2 className="w-4 h-4" />
-                        </button>
-                      </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+                <div className="flex ml-4 space-x-2">
+                  <button
+                    onClick={() => setEditingTemplate(template)}
+                    className="p-2 text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
+                  >
+                    <Edit3 className="w-4 h-4" />
+                  </button>
+                  <button
+                    className="p-2 text-green-600 hover:text-green-800 dark:text-green-400 dark:hover:text-green-300"
+                    onClick={() => navigate(`/video/preview/${template.id}`)}
+                  >
+                    <Play className="w-4 h-4" />
+                  </button>
+                  <button
+                    className="p-2 text-red-600 hover:text-red-800 dark:text-red-400 dark:hover:text-red-300"
+                    onClick={() => handleDeleteTemplate(template.id)}
+                  >
+                    <Trash2 className="w-4 h-4" />
+                  </button>
+                </div>
                     </div>
                   </div>
                 ))}
@@ -728,57 +746,60 @@ const VideoInterviewSettings: React.FC = () => {
             />
           )}
 
-          {/* AI Profiles Tab */}
-          {activeTab === 'ai-profiles' && (
-            <div>
-              <div className="flex justify-between items-center mb-6">
-                <h2 className="text-lg font-semibold">AI Interviewer Profiles</h2>
-                <Button className="flex items-center">
-                  <Plus className="w-4 h-4 mr-2" />
-                  New AI Profile
-                </Button>
-              </div>
+         {/* AI Profiles Tab */}
+{activeTab === 'ai-profiles' && (
+  <div>
+   <div className="flex items-center justify-between mb-6">
+  <h2 className="text-lg font-semibold text-gray-900 dark:text-white">AI Interviewer Profiles</h2>
+  <Button
+    className="flex items-center px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded hover:bg-blue-700 dark:bg-[#29D3C0] dark:hover:bg-[#25b5a8]"
+  >
+    <Plus className="w-4 h-4 mr-2" />
+    New AI Profile
+  </Button>
+</div>
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                {aiProfiles.map((profile) => (
-                  <div key={profile.id} className="border border-gray-200 rounded-lg p-6">
-                    <div className="flex flex-col items-center text-center mb-4">
-                      <div className="w-24 h-24 rounded-full overflow-hidden mb-3">
-                        <img 
-                          src={profile.avatar} 
-                          alt={profile.name} 
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                      <h3 className="font-medium text-lg">{profile.name}</h3>
-                      <p className="text-sm text-gray-600">{profile.role}</p>
-                    </div>
-                    
-                    <div className="space-y-3 text-sm">
-                      <div className="flex items-center">
-                        <Mic className="w-4 h-4 text-gray-500 mr-2" />
-                        <span>Voice: {profile.voice.replace('en-US-', '').replace('Neural', '')}</span>
-                      </div>
-                      <div>
-                        <p className="font-medium mb-1">Personality:</p>
-                        <p className="text-gray-600">{profile.personality}</p>
-                      </div>
-                      <div>
-                        <p className="font-medium mb-1">Interview Style:</p>
-                        <p className="text-gray-600">{profile.interviewStyle}</p>
-                      </div>
-                    </div>
-                    
-                    <div className="flex justify-center mt-4 space-x-2">
-                      <Button variant="outline" size="sm">
-                        <Edit3 className="w-3 h-3 mr-1" />
-                        Edit
-                      </Button>
-                      <Button variant="outline" size="sm">
-                        <Play className="w-3 h-3 mr-1" />
-                        Preview
-                      </Button>
-                    </div>
+
+    <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+      {aiProfiles.map((profile) => (
+        <div key={profile.id} className="p-6 bg-white border border-gray-200 rounded-lg dark:bg-gray-900 dark:border-gray-700">
+          <div className="flex flex-col items-center mb-4 text-center">
+            <div className="w-24 h-24 mb-3 overflow-hidden rounded-full ring-2 ring-gray-200 dark:ring-gray-700">
+              <img 
+                src={profile.avatar} 
+                alt={profile.name} 
+                className="object-cover w-full h-full"
+              />
+            </div>
+            <h3 className="text-lg font-medium text-gray-900 dark:text-white">{profile.name}</h3>
+            <p className="text-sm text-gray-600 dark:text-gray-400">{profile.role}</p>
+          </div>
+          
+          <div className="space-y-3 text-sm">
+            <div className="flex items-center text-gray-600 dark:text-gray-400">
+              <Mic className="w-4 h-4 mr-2" />
+              <span>Voice: {profile.voice.replace('en-US-', '').replace('Neural', '')}</span>
+            </div>
+            <div>
+              <p className="mb-1 font-medium text-gray-700 dark:text-gray-300">Personality:</p>
+              <p className="text-gray-600 dark:text-gray-400">{profile.personality}</p>
+            </div>
+            <div>
+              <p className="mb-1 font-medium text-gray-700 dark:text-gray-300">Interview Style:</p>
+              <p className="text-gray-600 dark:text-gray-400">{profile.interviewStyle}</p>
+            </div>
+          </div>
+          
+          <div className="flex justify-center mt-4 space-x-2">
+            <Button variant="outline" size="sm" className="text-blue-600 hover:text-blue-800 dark:text-[#29D3C0] dark:hover:text-[#29D3C0]">
+              <Edit3 className="w-3 h-3 mr-1" />
+              Edit
+            </Button>
+            <Button variant="outline" size="sm" className="text-green-600 hover:text-green-800 dark:text-green-400 dark:hover:text-green-300">
+              <Play className="w-3 h-3 mr-1" />
+              Preview
+            </Button>
+          </div>
                   </div>
                 ))}
               </div>
@@ -787,53 +808,57 @@ const VideoInterviewSettings: React.FC = () => {
 
           {/* Job Questions Tab */}
           {activeTab === 'job-questions' && (
-            <div>
-              <div className="flex justify-between items-center mb-6">
-                <h2 className="text-lg font-semibold">Job Questions</h2>
-                <div className="relative w-64">
-                  <input
-                    type="text"
-                    placeholder="Search jobs..."
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
-                  />
-                </div>
-              </div>
+  <div>
+    <div className="flex items-center justify-between mb-6">
+      <h2 className="text-lg font-semibold text-gray-900 dark:text-white">Job Questions</h2>
+      <div className="relative w-64">
+        <input
+          type="text"
+          placeholder="Search jobs..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md 
+                     focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500
+                     dark:bg-gray-800 dark:border-gray-600 dark:text-white 
+                     dark:placeholder-gray-400 dark:focus:border-[#29D3C0] dark:focus:ring-[#29D3C0]"
+        />
+      </div>
+    </div>
 
-              {loading ? (
-                <div className="flex justify-center py-12">
-                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+    {loading ? (
+      <div className="flex justify-center py-12">
+        <div className="w-8 h-8 border-b-2 border-blue-600 rounded-full animate-spin dark:border-[#29D3C0]"></div>
+      </div>
+    ) : (
+      <div className="space-y-6">
+        {filteredJobs.length === 0 ? (
+          <div className="py-12 text-center border border-gray-300 border-dashed rounded-lg dark:border-gray-700">
+            <p className="text-gray-500 dark:text-gray-400">No jobs with interview questions found</p>
+          </div>
+        ) : (
+          filteredJobs.map((job) => (
+            <div key={job.id} className="p-4 border border-gray-200 rounded-lg dark:border-gray-700 dark:bg-gray-900">
+              <div className="flex items-start justify-between mb-4">
+                <div>
+                  <h3 className="font-medium text-gray-900 dark:text-white">{job.title}</h3>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">ID: {job.id}</p>
                 </div>
-              ) : (
-                <div className="space-y-6">
-                  {filteredJobs.length === 0 ? (
-                    <div className="text-center py-12 border border-dashed border-gray-300 rounded-lg">
-                      <p className="text-gray-500">No jobs with interview questions found</p>
-                    </div>
-                  ) : (
-                    filteredJobs.map((job) => (
-                      <div key={job.id} className="border border-gray-200 rounded-lg p-4">
-                        <div className="flex justify-between items-start mb-4">
-                          <div>
-                            <h3 className="font-medium text-gray-900">{job.title}</h3>
-                            <p className="text-sm text-gray-600">ID: {job.id}</p>
-                          </div>
-                          <Button 
-                            variant="outline" 
-                            size="sm"
-                            onClick={() => handleCreateFromJob(job)}
-                          >
-                            <Plus className="w-3 h-3 mr-1" />
-                            Create Template
-                          </Button>
-                        </div>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="text-blue-600 hover:text-blue-800 hover:underline dark:text-[#29D3C0] dark:hover:text-[#29D3C0]"
+                  onClick={() => handleCreateFromJob(job)}
+                >
+                  <Plus className="w-3 h-3 mr-1" />
+                  Create Template
+                </Button>
+              </div>
                         
                         <div className="space-y-3">
                           {job.qaItems && job.qaItems.map((qa, index) => (
-                            <div key={index} className="bg-gray-50 p-3 rounded border border-gray-200">
-                              <p className="font-medium text-sm">{qa.question}</p>
-                              <p className="text-xs text-gray-600 mt-1">{qa.answer}</p>
+                            <div key={index} className="p-3 border border-gray-200 rounded bg-gray-50">
+                              <p className="text-sm font-medium">{qa.question}</p>
+                              <p className="mt-1 text-xs text-gray-600">{qa.answer}</p>
                             </div>
                           ))}
                         </div>
@@ -847,130 +872,152 @@ const VideoInterviewSettings: React.FC = () => {
 
           {/* Settings Tab */}
           {activeTab === 'settings' && (
-            <div className="space-y-6">
-              <h2 className="text-lg font-semibold">Global Settings</h2>
+  <div className="space-y-6">
+    <h2 className="text-lg font-semibold text-gray-900 dark:text-white">Global Settings</h2>
+
+    <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+      <div>
+        <label className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
+          Default Interview Duration (minutes)
+        </label>
+        <input
+          type="number"
+          value="30"
+          className="w-full p-3 border border-gray-300 rounded-md 
+                     focus:ring-2 focus:ring-blue-500 focus:border-transparent
+                     dark:bg-gray-800 dark:border-gray-600 dark:text-white 
+                     dark:placeholder-gray-400 dark:focus:ring-[#29D3C0]"
+        />
+      </div>
+
+      <div>
+        <label className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
+          Default Response Time Limit (seconds)
+        </label>
+        <input
+          type="number"
+          value="120"
+          className="w-full p-3 border border-gray-300 rounded-md 
+                     focus:ring-2 focus:ring-blue-500 focus:border-transparent
+                     dark:bg-gray-800 dark:border-gray-600 dark:text-white 
+                     dark:placeholder-gray-400 dark:focus:ring-[#29D3C0]"
+        />
+      </div>
+
+      <div>
+        <label className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
+          Default AI Interviewer
+        </label>
+        <select
+          className="w-full p-3 border border-gray-300 rounded-md 
+                     focus:ring-2 focus:ring-blue-500 focus:border-transparent
+                     dark:bg-gray-800 dark:border-gray-600 dark:text-white 
+                     dark:focus:ring-[#29D3C0]"
+        >
+          {aiProfiles.map(profile => (
+            <option key={profile.id} value={profile.name}>
+              {profile.name}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      <div>
+        <label className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
+          Default Voice
+        </label>
+        <select
+          className="w-full p-3 border border-gray-300 rounded-md 
+                     focus:ring-2 focus:ring-blue-500 focus:border-transparent
+                     dark:bg-gray-800 dark:border-gray-600 dark:text-white 
+                     dark:focus:ring-[#29D3C0]"
+        >
+          <option value="en-US-GuyNeural">Guy (Male)</option>
+          <option value="en-US-JennyNeural">Jenny (Female)</option>
+          <option value="en-US-DavisNeural">Davis (Male)</option>
+          <option value="en-US-AriaNeural">Aria (Female)</option>
+        </select>
+      </div>
+    </div>
               
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Default Interview Duration (minutes)</label>
-                  <input
-                    type="number"
-                    value="30"
-                    className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  />
-                </div>
-                
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Default Response Time Limit (seconds)</label>
-                  <input
-                    type="number"
-                    value="120"
-                    className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  />
-                </div>
-                
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Default AI Interviewer</label>
-                  <select
-                    className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  >
-                    {aiProfiles.map(profile => (
-                      <option key={profile.id} value={profile.name}>{profile.name}</option>
-                    ))}
-                  </select>
-                </div>
-                
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Default Voice</label>
-                  <select
-                    className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  >
-                    <option value="en-US-GuyNeural">Guy (Male)</option>
-                    <option value="en-US-JennyNeural">Jenny (Female)</option>
-                    <option value="en-US-DavisNeural">Davis (Male)</option>
-                    <option value="en-US-AriaNeural">Aria (Female)</option>
-                  </select>
-                </div>
-              </div>
-              
-              <div className="space-y-4 mt-6">
-                <h3 className="text-md font-medium text-gray-800">Interview Behavior</h3>
-                
-                <div className="flex items-center">
-                  <input
-                    type="checkbox"
-                    id="auto-followup"
-                    checked={true}
-                    className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-                  />
-                  <label htmlFor="auto-followup" className="ml-2 text-sm text-gray-700">
-                    Enable automatic follow-up questions
-                  </label>
-                </div>
-                
-                <div className="flex items-center">
-                  <input
-                    type="checkbox"
-                    id="keyword-analysis"
-                    checked={true}
-                    className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-                  />
-                  <label htmlFor="keyword-analysis" className="ml-2 text-sm text-gray-700">
-                    Enable keyword analysis in responses
-                  </label>
-                </div>
-                
-                <div className="flex items-center">
-                  <input
-                    type="checkbox"
-                    id="sentiment-analysis"
-                    checked={true}
-                    className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-                  />
-                  <label htmlFor="sentiment-analysis" className="ml-2 text-sm text-gray-700">
-                    Enable sentiment analysis
-                  </label>
-                </div>
-                
-                <div className="flex items-center">
-                  <input
-                    type="checkbox"
-                    id="record-interviews"
-                    checked={true}
-                    className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-                  />
-                  <label htmlFor="record-interviews" className="ml-2 text-sm text-gray-700">
-                    Record and store interviews
-                  </label>
-                </div>
-              </div>
-              
-              <div className="space-y-4 mt-6">
-                <h3 className="text-md font-medium text-gray-800">Notification Settings</h3>
-                
-                <div className="flex items-center">
-                  <input
-                    type="checkbox"
-                    id="notify-completion"
-                    checked={true}
-                    className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-                  />
-                  <label htmlFor="notify-completion" className="ml-2 text-sm text-gray-700">
-                    Notify recruiters when interviews are completed
-                  </label>
-                </div>
-                
-                <div className="flex items-center">
-                  <input
-                    type="checkbox"
-                    id="notify-candidates"
-                    checked={true}
-                    className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-                  />
-                  <label htmlFor="notify-candidates" className="ml-2 text-sm text-gray-700">
-                    Send confirmation emails to candidates
-                  </label>
-                </div>
+             <div className="mt-6 space-y-4">
+  <h3 className="font-medium text-gray-800 text-md dark:text-white">Interview Behavior</h3>
+
+  <div className="flex items-center">
+    <input
+      type="checkbox"
+      id="auto-followup"
+      checked={true}
+      className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-[#29D3C0] dark:border-gray-600 dark:bg-gray-800"
+    />
+    <label htmlFor="auto-followup" className="ml-2 text-sm text-gray-700 dark:text-gray-300">
+      Enable automatic follow-up questions
+    </label>
+  </div>
+
+  <div className="flex items-center">
+    <input
+      type="checkbox"
+      id="keyword-analysis"
+      checked={true}
+      className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-[#29D3C0] dark:border-gray-600 dark:bg-gray-800"
+    />
+    <label htmlFor="keyword-analysis" className="ml-2 text-sm text-gray-700 dark:text-gray-300">
+      Enable keyword analysis in responses
+    </label>
+  </div>
+
+  <div className="flex items-center">
+    <input
+      type="checkbox"
+      id="sentiment-analysis"
+      checked={true}
+      className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-[#29D3C0] dark:border-gray-600 dark:bg-gray-800"
+    />
+    <label htmlFor="sentiment-analysis" className="ml-2 text-sm text-gray-700 dark:text-gray-300">
+      Enable sentiment analysis
+    </label>
+  </div>
+
+  <div className="flex items-center">
+    <input
+      type="checkbox"
+      id="record-interviews"
+      checked={true}
+      className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-[#29D3C0] dark:border-gray-600 dark:bg-gray-800"
+    />
+    <label htmlFor="record-interviews" className="ml-2 text-sm text-gray-700 dark:text-gray-300">
+      Record and store interviews
+    </label>
+  </div>
+</div>
+
+<div className="mt-6 space-y-4">
+  <h3 className="font-medium text-gray-800 text-md dark:text-white">Notification Settings</h3>
+
+  <div className="flex items-center">
+    <input
+      type="checkbox"
+      id="notify-completion"
+      checked={true}
+      className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-[#29D3C0] dark:border-gray-600 dark:bg-gray-800"
+    />
+    <label htmlFor="notify-completion" className="ml-2 text-sm text-gray-700 dark:text-gray-300">
+      Notify recruiters when interviews are completed
+    </label>
+  </div>
+
+  <div className="flex items-center">
+    <input
+      type="checkbox"
+      id="notify-candidates"
+      checked={true}
+      className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-[#29D3C0] dark:border-gray-600 dark:bg-gray-800"
+    />
+    <label htmlFor="notify-candidates" className="ml-2 text-sm text-gray-700 dark:text-gray-300">
+      Send confirmation emails to candidates
+    </label>
+  </div>
               </div>
             </div>
           )}

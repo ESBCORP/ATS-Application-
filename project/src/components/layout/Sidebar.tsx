@@ -118,16 +118,18 @@ const NavItem: React.FC<NavItemProps> = ({
             
             const isCurrentlyActive = linkActive || isSubItemActive;
             
-            return `flex items-center justify-center h-14 w-16 rounded-lg transition-all duration-200 relative ${
+              return `flex items-center justify-center h-14 w-16 rounded-lg transition-all duration-200 relative ${
               isCurrentlyActive
-                ? 'bg-blue-800 dark:bg-blue-700 text-white'
+                ? 'bg-blue-800 dark:bg-[#145E5E] text-white'
                 : showSubmenu
-                ? 'text-blue-600 dark:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-700'
-                : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400'
+                ? 'text-blue-600 dark:text-[#29D3C0] hover:bg-gray-100 dark:hover:bg-gray-700'
+                : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-[#29D3C0]'
             }`;
+
+
           }}
         >
-          <span className="h-6 w-6 transition-colors duration-200">{icon}</span>
+          <span className="w-6 h-6 transition-colors duration-200">{icon}</span>
         </NavLink>
       </div>
 
@@ -146,13 +148,14 @@ const NavItem: React.FC<NavItemProps> = ({
             <NavLink
               key={index}
               to={item.to}
-              className={({ isActive }) =>
-                `block px-4 py-2 text-sm transition-colors duration-200 ${
-                  isActive
-                    ? 'bg-blue-50 dark:bg-blue-900 text-blue-800 dark:text-blue-200'
-                    : 'text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400'
-                }`
-              }
+          className={({ isActive }) =>
+            `block px-4 py-2 text-sm transition-colors duration-200 ${
+              isActive
+                ? 'bg-blue-50 dark:bg-[#145E5E] text-blue-800 dark:text-white'
+                : 'text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-[#29D3C0]'
+            }`
+          }
+
               onClick={handleSubmenuItemClick}
             >
               {item.label}
@@ -206,13 +209,22 @@ const Sidebar: React.FC = () => {
       ],
     },
     {
+      icon: <Phone />,
+      label: 'Phone',
+      to: '/phone',
+      subItems: [
+        { label: 'Messages', to: '/phone/messages' },
+        { label: 'Call History', to: '/phone/history' },
+        { label: 'Voicemail', to: '/phone/voicemail' }
+      ],
+    },
+    {
       icon: <Video />,
       label: 'Video',
       to: '/video',
       subItems: [
         { label: 'Meetings', to: '/video/meetings' },
-        { label: 'Recordings', to: '/video/recordings' },
-        { label: 'Video Settings', to: '/settings/video' }
+        { label: 'Recordings', to: '/video/recordings' }
       ],
     },
     {
@@ -265,8 +277,8 @@ const Sidebar: React.FC = () => {
   ];
 
   return (
-    <aside className="fixed left-0 top-16 h-full w-20 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 z-40">
-      <nav className="h-full py-3 flex flex-col items-center space-y-2">
+    <aside className="fixed left-0 z-40 w-20 h-full bg-white border-r border-gray-200 top-16 dark:bg-gray-800 dark:border-gray-700">
+      <nav className="flex flex-col items-center h-full py-3 space-y-2">
         {navItems.map((item, index) => (
           <NavItem 
             key={index} 

@@ -145,15 +145,15 @@ const getJobIdNumber = (job: any): number => {
           subtitle={subtitle}
         />
 
-        <div className="rounded-md bg-red-50 dark:bg-red-900/50 p-6 border border-red-200 dark:border-red-800">
+        <div className="p-6 border border-red-200 rounded-md bg-red-50 dark:bg-red-900/50 dark:border-red-800">
           <div className="flex items-center">
-            <Lock className="h-8 w-8 text-red-400" />
+            <Lock className="w-8 h-8 text-red-400" />
             <div className="ml-4">
               <h3 className="text-lg font-medium text-red-800 dark:text-red-200">Access Denied</h3>
-              <p className="text-sm text-red-700 dark:text-red-300 mt-2">
+              <p className="mt-2 text-sm text-red-700 dark:text-red-300">
                 You do not have the required permissions to view Jobs.
               </p>
-              <p className="text-sm text-red-600 dark:text-red-400 mt-1">
+              <p className="mt-1 text-sm text-red-600 dark:text-red-400">
                 Please contact your administrator to request access to the Jobs module.
               </p>
             </div>
@@ -175,7 +175,7 @@ const getJobIdNumber = (job: any): number => {
               onClick={() => navigate('/jobs/new')}
               className="flex items-center"
             >
-              <Plus className="mr-1 h-4 w-4" />
+              <Plus className="w-4 h-4 mr-1" />
               Add Job
             </Button>
           </div>
@@ -188,15 +188,16 @@ const getJobIdNumber = (job: any): number => {
           placeholder="Search jobs..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="w-full rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white px-4 py-2 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+          className="w-full px-4 py-2 text-gray-900 bg-white border border-gray-300 rounded-md dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:focus:border-teal-400 dark:focus:ring-teal-500"
         />
+
       </div>
 
       {error && (
-        <div className="mb-6 rounded-md p-4 bg-red-50 dark:bg-red-900/50 text-red-800 dark:text-red-200">
+        <div className="p-4 mb-6 text-red-800 rounded-md bg-red-50 dark:bg-red-900/50 dark:text-red-200">
           <div className="flex items-center">
             <div className="flex-shrink-0">
-              <AlertCircle className="h-5 w-5 text-red-400" />
+              <AlertCircle className="w-5 h-5 text-red-400" />
             </div>
             <div className="ml-3">
               <p className="text-sm font-medium">Error</p>
@@ -208,16 +209,15 @@ const getJobIdNumber = (job: any): number => {
       
       {loading ? (
         <div className="flex items-center justify-center py-12">
-          <Loader className="h-8 w-8 animate-spin text-blue-600" />
+        <Loader className="h-8 w-8 animate-spin text-blue-600 hover:text-blue-800 dark:text-[#29D3C0] dark:hover:text-[#29D3C0]" />
         </div>
       ) : (
         <>
           <JobsTable jobs={paginatedJobs} />
-          
           {/* Pagination - Only show if there are results */}
           {filteredJobs.length > 0 && (
-            <div className="mt-6 flex items-center justify-between border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 px-4 py-3 sm:px-6">
-              <div className="flex flex-1 justify-between sm:hidden">
+          <div className="flex items-center justify-between px-4 py-3 mt-6 bg-white border-t border-gray-200 dark:border-gray-700 dark:bg-gray-800 sm:px-6">
+              <div className="flex justify-between flex-1 sm:hidden">
                 <Button
                   onClick={handlePreviousPage}
                   disabled={currentPage === 1}
@@ -244,7 +244,7 @@ const getJobIdNumber = (job: any): number => {
                   </p>
                 </div>
                 <div>
-                  <nav className="isolate inline-flex -space-x-px rounded-md shadow-sm" aria-label="Pagination">
+                  <nav className="inline-flex -space-x-px rounded-md shadow-sm isolate" aria-label="Pagination">
                     <Button
                       variant="outline"
                       onClick={handlePreviousPage}

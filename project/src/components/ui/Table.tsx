@@ -78,7 +78,7 @@ function Table<T>({
               <th
                 key={index}
                 scope="col"
-                className={`px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-300 ${
+                className={`px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-white ${
                   column.sortable ? 'cursor-pointer select-none' : ''
                 } ${column.className || ''}`}
                 onClick={() => column.sortable && handleSort(index, column)}
@@ -146,5 +146,4 @@ function Table<T>({
     </div>
   );
 }
-
 export default Table;

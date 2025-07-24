@@ -22,11 +22,15 @@ const Button: React.FC<ButtonProps> = ({
   const baseClasses = 'inline-flex items-center justify-center rounded-md font-medium transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-gray-800';
   
   const variantClasses = {
-    primary: 'bg-blue-800 text-white hover:bg-blue-700 focus:ring-blue-600 dark:bg-teal-600 dark:hover:bg-teal-500 dark:focus:ring-teal-500 ',
-    secondary: 'bg-teal-600 text-white hover:bg-teal-500 focus:ring-teal-400 dark:bg-teal-700 dark:hover:bg-teal-600',
-    outline: 'border border-gray-300 dark:border-gray-600 bg-transparent text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 focus:ring-gray-400',
-    ghost: 'bg-transparent text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 focus:ring-gray-400',
-    danger: 'bg-red-600 text-white hover:bg-red-500 focus:ring-red-400 dark:bg-red-700 dark:hover:bg-red-600'
+  primary: 'bg-blue-700 text-white hover:bg-blue-600 focus:ring-blue-600 dark:bg-[#23b1a3] dark:hover:bg-[#29D3C0] dark:focus:ring-[#29D3C0]',
+
+  secondary: 'bg-teal-500 text-white hover:bg-teal-600 focus:ring-teal-400 dark:bg-[#23b1a3] dark:hover:bg-[#29D3C0] dark:focus:ring-[#29D3C0]',
+
+  outline: 'border border-gray-300 dark:border-gray-600 bg-transparent text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 focus:border-blue-600 focus:ring-blue-600 dark:focus:border-[#29D3C0] dark:focus:ring-[#29D3C0]',
+
+  ghost: 'bg-transparent text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 focus:ring-blue-600 dark:focus:ring-[#29D3C0]',
+
+  danger: 'bg-red-500 text-white hover:bg-red-600 focus:ring-red-400 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-500'
   };
   
   const sizeClasses = {
@@ -49,7 +53,7 @@ const Button: React.FC<ButtonProps> = ({
       {isLoading ? (
         <>
           <svg 
-            className="animate-spin -ml-1 mr-2 h-4 w-4 text-current" 
+            className="w-4 h-4 mr-2 -ml-1 text-current animate-spin" 
             xmlns="http://www.w3.org/2000/svg" 
             fill="none" 
             viewBox="0 0 24 24"

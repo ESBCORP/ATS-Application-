@@ -96,10 +96,9 @@ const SubmissionsTable: React.FC<SubmissionsTableProps> = ({
           <button
             onClick={(e) => {
               e.stopPropagation();
-              // setSelectedSubmission(submission);
-              navigate(`/submission/details/${submission.id}`);
+              setSelectedSubmission(submission);
             }}
-            className="text-blue-600 hover:text-blue-800 hover:underline"
+            className="text-blue-600 hover:text-blue-800 hover:underline dark:text-[#29D3C0] dark:hover:text-[#29D3C0]"
           >
             {formatSubmissionId(submission)}
           </button>
@@ -115,7 +114,8 @@ const SubmissionsTable: React.FC<SubmissionsTableProps> = ({
       accessor: (submission: Submission) => (
         <button
           onClick={(e) => handleCandidateClick(submission, e)}
-          className="text-blue-600 hover:text-blue-800 hover:underline"
+          className="text-blue-600 hover:text-blue-800 hover:underline dark:text-[#29D3C0] dark:hover:text-[#29D3C0]"
+
         >
           {submission.firstName} {submission.lastName}
         </button>
@@ -129,7 +129,7 @@ const SubmissionsTable: React.FC<SubmissionsTableProps> = ({
             e.stopPropagation();
             navigate(`/jobs/details/${submission.jobId}`);
           }}
-          className="text-blue-600 hover:text-blue-800 hover:underline"
+        className="text-blue-600 hover:text-blue-800 hover:underline dark:text-[#29D3C0] dark:hover:text-[#29D3C0]"
         >
           {submission.jobId}
         </button>

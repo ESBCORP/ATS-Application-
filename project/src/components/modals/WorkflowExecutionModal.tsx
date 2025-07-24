@@ -1,9 +1,8 @@
+import { AlertCircle, CheckCircle, Clock, Eye, X, XCircle } from 'lucide-react';
 import React, { useState } from 'react';
-import { CheckCircle, XCircle, Clock, AlertCircle, Eye, X } from 'lucide-react';
-import Button from '../ui/Button';
-import { Workflow } from '../../types/automation';
-import { WorkflowExecution } from '../../types/automation';
 import { workflowExecutionService } from '../../services/workflowExecutionService';
+import { Workflow, WorkflowExecution } from '../../types/automation';
+import Button from '../ui/Button';
 
 interface WorkflowExecutionModalProps {
   isOpen: boolean;
@@ -70,13 +69,13 @@ const WorkflowExecutionModal: React.FC<WorkflowExecutionModalProps> = ({
   const getStatusIcon = (status: string) => {
     switch (status) {
       case 'Success':
-        return <CheckCircle className="h-5 w-5 text-green-500" />;
+        return <CheckCircle className="w-5 h-5 text-green-500" />;
       case 'Failed':
-        return <XCircle className="h-5 w-5 text-red-500" />;
+        return <XCircle className="w-5 h-5 text-red-500" />;
       case 'Running':
-        return <Clock className="h-5 w-5 text-blue-500 animate-spin" />;
+        return <Clock className="w-5 h-5 text-blue-500 animate-spin" />;
       default:
-        return <AlertCircle className="h-5 w-5 text-yellow-500" />;
+        return <AlertCircle className="w-5 h-5 text-yellow-500" />;
     }
   };
 
@@ -98,11 +97,11 @@ const WorkflowExecutionModal: React.FC<WorkflowExecutionModalProps> = ({
   return (
     <>
       <div className="fixed inset-0 z-50 overflow-y-auto">
-        <div className="flex min-h-screen items-center justify-center px-4">
-          <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" onClick={onClose} />
+        <div className="flex items-center justify-center min-h-screen px-4">
+          <div className="fixed inset-0 transition-opacity bg-gray-500 bg-opacity-75" onClick={onClose} />
           
           <div className="relative w-full max-w-6xl rounded-lg bg-white p-6 shadow-xl max-h-[90vh] overflow-y-auto">
-            <div className="mb-6 flex items-center justify-between">
+            <div className="flex items-center justify-between mb-6">
               <div>
                 <h2 className="text-xl font-semibold text-gray-900">Execute Workflow: {workflow.name}</h2>
                 <p className="text-sm text-gray-500">
@@ -110,18 +109,18 @@ const WorkflowExecutionModal: React.FC<WorkflowExecutionModalProps> = ({
                 </p>
               </div>
               <Button variant="outline" size="sm" onClick={onClose}>
-                <X className="h-4 w-4" />
+                <X className="w-4 h-4" />
               </Button>
             </div>
 
             {/* Workflow Description */}
-            <div className="mb-6 rounded-lg bg-gray-50 p-4">
-              <h3 className="font-medium text-gray-900 mb-2">Workflow Description</h3>
+            <div className="p-4 mb-6 rounded-lg bg-gray-50">
+              <h3 className="mb-2 font-medium text-gray-900">Workflow Description</h3>
               <p className="text-sm text-gray-600">{workflow.description}</p>
             </div>
 
             {/* Execution Controls */}
-            <div className="mb-6 flex items-center justify-between">
+            <div className="flex items-center justify-between mb-6">
               <div className="flex items-center space-x-4">
                 <Button
                   onClick={executeWorkflowForCandidates}
@@ -135,11 +134,11 @@ const WorkflowExecutionModal: React.FC<WorkflowExecutionModalProps> = ({
                 {Object.keys(executions).length > 0 && (
                   <div className="flex items-center space-x-4 text-sm">
                     <span className="flex items-center text-green-600">
-                      <CheckCircle className="h-4 w-4 mr-1" />
+                      <CheckCircle className="w-4 h-4 mr-1" />
                       {Object.values(executions).filter(e => e.status === 'Success').length} Success
                     </span>
                     <span className="flex items-center text-red-600">
-                      <XCircle className="h-4 w-4 mr-1" />
+                      <XCircle className="w-4 h-4 mr-1" />
                       {Object.values(executions).filter(e => e.status === 'Failed').length} Failed
                     </span>
                   </div>
@@ -190,7 +189,7 @@ const WorkflowExecutionModal: React.FC<WorkflowExecutionModalProps> = ({
                               onClick={() => setSelectedExecution(execution)}
                               className="flex items-center gap-1"
                             >
-                              <Eye className="h-3 w-3" />
+                              <Eye className="w-3 h-3" />
                               Logs
                             </Button>
                           </div>
@@ -213,8 +212,8 @@ const WorkflowExecutionModal: React.FC<WorkflowExecutionModalProps> = ({
 
             {/* No executions yet */}
             {Object.keys(executions).length === 0 && !isRunning && (
-              <div className="text-center py-8 text-gray-500">
-                <Clock className="h-12 w-12 mx-auto mb-4 opacity-50" />
+              <div className="py-8 text-center text-gray-500">
+                <Clock className="w-12 h-12 mx-auto mb-4 opacity-50" />
                 <p>Click "Execute Workflow" to start running the workflow on selected candidates</p>
               </div>
             )}
@@ -224,12 +223,12 @@ const WorkflowExecutionModal: React.FC<WorkflowExecutionModalProps> = ({
 
       {/* Execution Logs Modal */}
       {selectedExecution && (
-        <div className="fixed inset-0 z-60 overflow-y-auto">
-          <div className="flex min-h-screen items-center justify-center px-4">
-            <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" onClick={() => setSelectedExecution(null)} />
+        <div className="fixed inset-0 overflow-y-auto z-60">
+          <div className="flex items-center justify-center min-h-screen px-4">
+            <div className="fixed inset-0 transition-opacity bg-gray-500 bg-opacity-75" onClick={() => setSelectedExecution(null)} />
             
-            <div className="relative w-full max-w-4xl rounded-lg bg-white p-6 shadow-xl">
-              <div className="mb-6 flex items-center justify-between">
+            <div className="relative w-full max-w-4xl p-6 bg-white rounded-lg shadow-xl">
+              <div className="flex items-center justify-between mb-6">
                 <div>
                   <h2 className="text-xl font-semibold text-gray-900">Execution Logs</h2>
                   <p className="text-sm text-gray-500">

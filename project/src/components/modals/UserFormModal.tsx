@@ -167,7 +167,7 @@ const handleSubmit = async (e: React.FormEvent) => {
       <div className="flex min-h-screen items-center justify-center px-4">
         <div className="fixed inset-0 bg-black bg-opacity-40 transition-opacity" onClick={onClose} />
 
-        <div className="relative w-full max-w-2xl rounded-xl bg-white dark:bg-[#1f2937] border dark:border-gray-700 p-6 shadow-2xl transition">
+        <div className="relative w-full max-w-md rounded-xl bg-white dark:bg-[#1f2937] border dark:border-gray-700 p-6 shadow-2xl transition">
           <h2 className="mb-6 text-xl font-semibold text-gray-900 dark:text-white">
             {user ? 'Edit User' : 'Add New User'}
           </h2>
@@ -184,7 +184,7 @@ const handleSubmit = async (e: React.FormEvent) => {
             </div>
           )}
 
-  <form onSubmit={handleSubmit} className="grid grid-cols-2 gap-4">
+          <form onSubmit={handleSubmit} className="space-y-4">
             <Input
                 label="Username"
                 value={formData.username??''}
@@ -194,7 +194,8 @@ const handleSubmit = async (e: React.FormEvent) => {
                 }}
                 required
                 disabled={isSubmitting}
-                error={fieldErrors.username}/>
+                error={fieldErrors.username}
+              />
             
             <Input
               label="Full Name"

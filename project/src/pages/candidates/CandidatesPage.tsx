@@ -201,7 +201,7 @@ const CandidatesPage: React.FC = () => {
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
-        <Loader className="h-8 w-8 animate-spin text-blue-600" />
+        <Loader className="w-8 h-8 animate-spin text-blue-600 dark:text-[#128178]"/>
       </div>
     );
   }
@@ -215,15 +215,15 @@ const CandidatesPage: React.FC = () => {
           subtitle={subtitle}
         />
 
-        <div className="rounded-md bg-red-50 dark:bg-red-900/50 p-6 border border-red-200 dark:border-red-800">
+        <div className="p-6 border border-red-200 rounded-md bg-red-50 dark:bg-red-900/50 dark:border-red-800">
           <div className="flex items-center">
-            <Lock className="h-8 w-8 text-red-400" />
+            <Lock className="w-8 h-8 text-red-400" />
             <div className="ml-4">
               <h3 className="text-lg font-medium text-red-800 dark:text-red-200">Access Denied</h3>
-              <p className="text-sm text-red-700 dark:text-red-300 mt-2">
+              <p className="mt-2 text-sm text-red-700 dark:text-red-300">
                 You do not have the required permissions to view Candidates.
               </p>
-              <p className="text-sm text-red-600 dark:text-red-400 mt-1">
+              <p className="mt-1 text-sm text-red-600 dark:text-red-400">
                 Please contact your administrator to request access to the Candidates module.
               </p>
             </div>
@@ -240,28 +240,32 @@ const CandidatesPage: React.FC = () => {
         subtitle={subtitle}
         actions={
           <div className="flex items-center space-x-2">
-            <DateRangeFilter onFilterChange={setDateRange} />
-            <Button
-              onClick={() => navigate('/candidates/new')}
-              className="flex items-center"
-            >
-              <Plus className="mr-1 h-4 w-4" />
-              Add Candidate
-            </Button>
-          </div>
+          <DateRangeFilter onFilterChange={setDateRange} />
+          <Button
+            onClick={() => navigate('/candidates/new')}
+           className="flex items-center bg-blue-600 hover:bg-blue-700 text-white dark:bg-[#18998F] dark:hover:bg-[#1FB2A8]"
+          >
+            <Plus className="w-4 h-4 mr-1" />  
+            Add Candidate
+          </Button>
+        </div>
+
         }
       />
       
       <div className="mb-6">
         <div className="relative">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+          <Search className="absolute w-5 h-5 text-gray-400 transform -translate-y-1/2 left-3 top-1/2" />
           <input
             type="text"
             placeholder="Search by name, phone, location, skills, or job title..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white pl-10 pr-4 py-2 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
-          />
+            className="w-full py-2 pl-10 pr-4 text-gray-900 bg-white border border-gray-300 rounded-md
+              dark:border-gray-600 dark:bg-gray-700 dark:text-white 
+              focus:outline-none focus:ring-1 
+              focus:border-blue-500 focus:ring-blue-500 
+              dark:focus:border-[#29D3C0] dark:focus:ring-[#29D3C0]"          />
         </div>
         <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
           Search across multiple fields: candidate name, phone number, location (city/state), skills, and job title
@@ -270,10 +274,10 @@ const CandidatesPage: React.FC = () => {
 
 
       {error && (
-        <div className="mb-6 rounded-md p-4 bg-red-50 dark:bg-red-900/50 text-red-800 dark:text-red-200">
+        <div className="p-4 mb-6 text-red-800 rounded-md bg-red-50 dark:bg-red-900/50 dark:text-red-200">
           <div className="flex items-center">
             <div className="flex-shrink-0">
-              <AlertCircle className="h-5 w-5 text-red-400" />
+              <AlertCircle className="w-5 h-5 text-red-400" />
             </div>
             <div className="ml-3">
               <p className="text-sm font-medium">Error</p>
@@ -290,8 +294,8 @@ const CandidatesPage: React.FC = () => {
         
         {/* Pagination - Only show if there are results */}
         {filteredCandidates.length > 0 && (
-          <div className="mt-6 flex items-center justify-between border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 px-4 py-3 sm:px-6">
-            <div className="flex flex-1 justify-between sm:hidden">
+          <div className="flex items-center justify-between px-4 py-3 mt-6 bg-white border-t border-gray-200 dark:border-gray-700 dark:bg-gray-800 sm:px-6">
+            <div className="flex justify-between flex-1 sm:hidden">
               <Button
                 onClick={handlePreviousPage}
                 disabled={currentPage === 1}
@@ -318,7 +322,7 @@ const CandidatesPage: React.FC = () => {
                 </p>
               </div>
               <div>
-                <nav className="isolate inline-flex -space-x-px rounded-md shadow-sm" aria-label="Pagination">
+                <nav className="inline-flex -space-x-px rounded-md shadow-sm isolate" aria-label="Pagination">
                   <Button
                     variant="outline"
                     onClick={handlePreviousPage}

@@ -427,7 +427,7 @@ const getRandomColor = (name?: string | null): string => {
       />
 
       {/* Modern Tab Section */}
-      <div className="bg-white rounded-lg shadow-sm border border-gray-200">
+      <div className="bg-white dark:bg-gray-900 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700">
         {/* Tab Navigation */}
         <div className="border-b border-gray-200">
           <nav className="flex space-x-8 px-6" aria-label="Tabs">
@@ -442,22 +442,20 @@ const getRandomColor = (name?: string | null): string => {
                   className={`
                     flex items-center space-x-2 py-4 px-1 border-b-2 font-medium text-sm transition-colors duration-200
                     ${isActive
-                      ? 'border-blue-500 text-blue-600'
-                      : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                    ? 'border-blue-500 text-blue-500 dark:text-blue-400'
+                    : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-white dark:hover:border-gray-500'}
                     }
                   `}
                 >
                   <Icon className="h-5 w-5" />
                   <span>{tab.label}</span>
                   <span
-                    className={`
-                      inline-flex items-center justify-center px-2.5 py-0.5 rounded-full text-xs font-medium
-                      ${isActive
-                        ? 'bg-blue-100 text-blue-800'
-                        : 'bg-gray-100 text-gray-600'
-                      }
-                    `}
-                  >
+                      className={`ml-2 rounded-full px-2 py-0.5 text-xs font-semibold ${
+                        isActive
+                          ? 'bg-blue-100 text-blue-800 dark:bg-blue-500/20 dark:text-blue-300'
+                          : 'bg-gray-100 text-gray-600 dark:bg-gray-700 dark:text-gray-300'
+                      }`}
+                    >
                     {tab.count}
                   </span>
                 </button>

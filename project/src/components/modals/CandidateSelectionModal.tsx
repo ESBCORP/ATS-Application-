@@ -71,52 +71,53 @@ const CandidateSelectionModal: React.FC<CandidateSelectionModalProps> = ({
   ];
 
   return (
-    <div className="fixed inset-0 z-50 overflow-y-auto">
-      <div className="flex min-h-screen items-center justify-center px-4">
-        <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" onClick={onClose} />
-        
-        <div className="relative w-full max-w-6xl rounded-lg bg-white p-6 shadow-xl">
-          <div className="mb-4 flex items-center justify-between">
-            <h2 className="text-xl font-semibold text-gray-900">Select Candidate</h2>
-            <Button variant="outline" size="sm" onClick={onClose}>Close</Button>
-          </div>
-          
-          <div className="mb-4">
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
-              <input
-                type="text"
-                placeholder="Search candidates by name, email, phone, job title, or skills..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full rounded-md border border-gray-300 pl-10 pr-4 py-2 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
-              />
-            </div>
-          </div>
-
-          {error && (
-            <div className="mb-4 rounded-md bg-red-50 p-4 text-red-800">
-              {error}
-            </div>
-          )}
-          
-          {loading ? (
-            <div className="flex items-center justify-center py-12">
-              <Loader className="h-8 w-8 animate-spin text-blue-600" />
-            </div>
-          ) : (
-            <Table
-              columns={columns}
-              data={filteredCandidates}
-              keyExtractor={(candidate) => candidate.id}
-              onRowClick={(candidate) => {
-                onSelect(candidate);
-                onClose();
-              }}
-              emptyMessage="No candidates found"
-            />
-          )}
+    <div className="fixed inset-0 z-50 flex items-center justify-center px-4 bg-gray-500 bg-opacity-75 dark:bg-gray-900 dark:bg-opacity-90">
+      {/* Modal Panel */}
+      <div className="relative w-full max-w-6xl p-6 bg-white border border-gray-200 rounded-lg shadow-xl dark:bg-gray-900 dark:border-gray-700">
+        {/* Header */}
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100">Select Candidate</h2>
+          <Button variant="outline" size="sm" onClick={onClose}>Close</Button>
         </div>
+
+        {/* Search */}
+        <div className="mb-4">
+          <div className="relative">
+            <Search className="absolute w-5 h-5 text-gray-400 transform -translate-y-1/2 left-3 top-1/2 dark:text-gray-300" />
+            <input
+              type="text"
+              placeholder="Search candidates by name, email, phone, job title, or skills..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+          className="w-full rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 pl-10 pr-4 py-2 text-sm focus:border-blue-600 focus:outline-none focus:ring-1 focus:ring-blue-600 dark:focus:border-[#29D3C0] dark:focus:ring-[#29D3C0]"
+            />
+          </div>
+        </div>
+
+        {/* Error */}
+        {error && (
+          <div className="p-4 mb-4 text-red-800 rounded-md bg-red-50 dark:bg-red-950 dark:text-red-200">
+            {error}
+          </div>
+        )}
+
+        {/* Table or Loader */}
+        {loading ? (
+          <div className="flex items-center justify-center py-12">
+          <Loader className="w-8 h-8 text-blue-600 dark:text-[#29D3C0] animate-spin" />
+          </div>
+        ) : (
+          <Table
+            columns={columns}
+            data={filteredCandidates}
+            keyExtractor={(candidate) => candidate.id}
+            onRowClick={(candidate) => {
+              onSelect(candidate);
+              onClose();
+            }}
+            emptyMessage="No candidates found"
+          />
+        )}
       </div>
     </div>
   );

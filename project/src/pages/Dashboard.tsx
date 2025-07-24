@@ -19,14 +19,14 @@ interface StatCardProps {
 const StatCard: React.FC<StatCardProps> = ({ title, value, icon, color, linkTo, loading }) => (
   <Link
     to={linkTo}
-    className="block overflow-hidden rounded-lg bg-white dark:bg-gray-800 p-6 shadow-md transition-all hover:shadow-lg border border-gray-200 dark:border-gray-700"
+    className="block p-6 overflow-hidden transition-all bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 hover:shadow-lg dark:border-gray-700"
   >
     <div className="flex items-center">
       <div className={`rounded-md p-3 ${color}`}>{icon}</div>
       <div className="ml-4">
         <p className="text-sm font-medium text-gray-500 dark:text-gray-400">{title}</p>
         {loading ? (
-          <Loader className="h-5 w-5 animate-spin text-gray-400" />
+          <Loader className="w-5 h-5 text-gray-400 animate-spin" />
         ) : (
           <p className="text-2xl font-semibold text-gray-900 dark:text-white">{value}</p>
         )}
@@ -86,7 +86,7 @@ const Dashboard: React.FC = () => {
   return (
     <div>
       <PageHeader
-        title={`Welcome, ${user?.full_name || 'User'}!`}
+        title={`Welcome, ${user?.name || 'User'}!`}
         subtitle="Here's what's happening with your recruitment pipeline."
       />
       
@@ -94,7 +94,7 @@ const Dashboard: React.FC = () => {
         <StatCard
           title="Active Jobs"
           value={metrics.activeJobs}
-          icon={<Briefcase className="h-6 w-6 text-white" />}
+          icon={<Briefcase className="w-6 h-6 text-white" />}
           color="bg-blue-800 text-white"
           linkTo="/jobs/active"
           loading={loading}
@@ -102,7 +102,7 @@ const Dashboard: React.FC = () => {
         <StatCard
           title="Active Candidates"
           value={metrics.activeCandidates}
-          icon={<Users className="h-6 w-6 text-white" />}
+          icon={<Users className="w-6 h-6 text-white" />}
           color="bg-teal-600 text-white"
           linkTo="/candidates/active"
           loading={loading}
@@ -110,7 +110,7 @@ const Dashboard: React.FC = () => {
         <StatCard
           title="Total Submissions"
           value={metrics.submittedCount}
-          icon={<ClipboardList className="h-6 w-6 text-white" />}
+          icon={<ClipboardList className="w-6 h-6 text-white" />}
           color="bg-purple-600 text-white"
           linkTo="/submissions"
           loading={loading}
@@ -118,7 +118,7 @@ const Dashboard: React.FC = () => {
         <StatCard
           title="Active Pipeline"
           value={metrics.pipeline}
-          icon={<GitPullRequestArrow className="h-6 w-6 text-white" />}
+          icon={<GitPullRequestArrow className="w-6 h-6 text-white" />}
           color="bg-orange-500 text-white"
           linkTo="/pipeline"
           loading={loading}
@@ -127,95 +127,96 @@ const Dashboard: React.FC = () => {
 
       {/* Reports Section */}
       <div className="mt-12">
-        <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-6">Reports & Analytics</h2>
+        <h2 className="mb-6 text-xl font-bold text-gray-900 dark:text-white">Reports & Analytics</h2>
         
         {/* Recruitment Metrics */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          <div className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-md border border-gray-200 dark:border-gray-700">
+        <div className="grid grid-cols-1 gap-6 mb-8 md:grid-cols-2 lg:grid-cols-4">
+          <div className="p-6 bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Job Fill Rate</p>
                 <p className="text-2xl font-bold text-gray-900 dark:text-white">
                   {loading ? (
-                    <Loader className="h-5 w-5 animate-spin text-gray-400" />
+                    <Loader className="w-5 h-5 text-gray-400 animate-spin" />
                   ) : (
                     `${((metrics.activeJobs / metrics.totalJobs) * 100).toFixed(1)}%`
                   )}
                 </p>
-                <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">Active vs Total Jobs</p>
+                <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">Active vs Total Jobs</p>
               </div>
-              <div className="bg-blue-100 dark:bg-blue-900 p-3 rounded-full">
-                <BarChart3 className="h-6 w-6 text-blue-600 dark:text-blue-400" />
+              <div className="p-3 bg-blue-100 rounded-full dark:bg-blue-900">
+                <BarChart3 className="w-6 h-6 text-blue-600 dark:text-blue-400" />
               </div>
             </div>
           </div>
 
-          <div className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-md border border-gray-200 dark:border-gray-700">
+          <div className="p-6 bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Candidate Activity</p>
                 <p className="text-2xl font-bold text-gray-900 dark:text-white">
                   {loading ? (
-                    <Loader className="h-5 w-5 animate-spin text-gray-400" />
+                    <Loader className="w-5 h-5 text-gray-400 animate-spin" />
                   ) : (
                     `${((metrics.activeCandidates / metrics.totalCandidates) * 100).toFixed(1)}%`
                   )}
                 </p>
-                <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">Active vs Total Candidates</p>
+                <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">Active vs Total Candidates</p>
               </div>
-              <div className="bg-green-100 dark:bg-green-900 p-3 rounded-full">
-                <TrendingUp className="h-6 w-6 text-green-600 dark:text-green-400" />
+              <div className="p-3 bg-green-100 rounded-full dark:bg-green-900">
+                <TrendingUp className="w-6 h-6 text-green-600 dark:text-green-400" />
               </div>
             </div>
           </div>
 
-          <div className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-md border border-gray-200 dark:border-gray-700">
+          <div className="p-6 bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Submission Rate</p>
                 <p className="text-2xl font-bold text-gray-900 dark:text-white">
                   {loading ? (
-                    <Loader className="h-5 w-5 animate-spin text-gray-400" />
+                    <Loader className="w-5 h-5 text-gray-400 animate-spin" />
                   ) : (
                     `${((metrics.submittedCount / metrics.totalCandidates) * 100).toFixed(1)}%`
                   )}
                 </p>
-                <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">Submissions per Candidate</p>
+                <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">Submissions per Candidate</p>
               </div>
-              <div className="bg-purple-100 dark:bg-purple-900 p-3 rounded-full">
-                <ChartBar className="h-6 w-6 text-purple-600 dark:text-purple-400" />
+              <div className="p-3 bg-purple-100 rounded-full dark:bg-purple-900">
+                <ChartBar className="w-6 h-6 text-purple-600 dark:text-purple-400" />
               </div>
             </div>
           </div>
 
-          <div className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-md border border-gray-200 dark:border-gray-700">
+          <div className="p-6 bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Pipeline Health</p>
                 <p className="text-2xl font-bold text-gray-900 dark:text-white">
                   {loading ? (
-                    <Loader className="h-5 w-5 animate-spin text-gray-400" />
+                    <Loader className="w-5 h-5 text-gray-400 animate-spin" />
                   ) : (
                     `${((metrics.pipeline / metrics.submittedCount) * 100).toFixed(1)}%`
                   )}
                 </p>
-                <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">Conversion Rate</p>
+                <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">Conversion Rate</p>
               </div>
-              <div className="bg-orange-100 dark:bg-orange-900 p-3 rounded-full">
-                <LineChart className="h-6 w-6 text-orange-600 dark:text-orange-400" />
+              <div className="p-3 bg-orange-100 rounded-full dark:bg-orange-900">
+                <LineChart className="w-6 h-6 text-orange-600 dark:text-orange-400" />
               </div>
             </div>
           </div>
         </div>
 
         {/* Recent Activity */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
           {/* Recent Jobs */}
-          <div className="rounded-lg bg-white dark:bg-gray-800 p-6 shadow-md border border-gray-200 dark:border-gray-700">
+          <div className="p-6 bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
             <h2 className="mb-4 text-lg font-semibold text-gray-900 dark:text-white">Recent Jobs</h2>
             {loading ? (
               <div className="flex items-center justify-center py-12">
-                <Loader className="h-8 w-8 animate-spin text-blue-600" />
+                <Loader className="w-8 h-8 animate-spin text-blue-600 dark:text-[#128178]" />
+
               </div>
             ) : (
               <div className="space-y-4">
@@ -223,9 +224,12 @@ const Dashboard: React.FC = () => {
                   <p className="text-center text-gray-500 dark:text-gray-400">No active jobs found</p>
                 ) : (
                   <div className="text-right">
-                    <Link to="/jobs" className="text-sm font-medium text-blue-800 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300">
-                      View all jobs →
-                    </Link>
+                   <Link to="/jobs"
+                    className="text-sm font-medium text-blue-800 hover:text-blue-700 dark:text-[#29D3C0] dark:hover:text-[#29D3C0]"
+                  >
+                    View all jobs →
+                  </Link>
+
                   </div>
                 )}
               </div>
@@ -233,11 +237,12 @@ const Dashboard: React.FC = () => {
           </div>
           
           {/* Recent Candidates */}
-          <div className="rounded-lg bg-white dark:bg-gray-800 p-6 shadow-md border border-gray-200 dark:border-gray-700">
+          <div className="p-6 bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
             <h2 className="mb-4 text-lg font-semibold text-gray-900 dark:text-white">Recent Candidates</h2>
             {loading ? (
               <div className="flex items-center justify-center py-12">
-                <Loader className="h-8 w-8 animate-spin text-blue-600" />
+                <Loader className="w-8 h-8 animate-spin text-blue-600 dark:text-[#128178]" />
+
               </div>
             ) : (
               <div className="space-y-4">
@@ -245,9 +250,12 @@ const Dashboard: React.FC = () => {
                   <p className="text-center text-gray-500 dark:text-gray-400">No active candidates found</p>
                 ) : (
                   <div className="text-right">
-                    <Link to="/candidates" className="text-sm font-medium text-blue-800 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300">
+                   <Link to="/candidates"
+                      className="text-sm font-medium text-blue-800 hover:text-blue-700 dark:text-[#29D3C0] dark:hover:text-[#29D3C0]"
+                    >
                       View all candidates →
                     </Link>
+
                   </div>
                 )}
               </div>

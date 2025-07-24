@@ -305,14 +305,14 @@ const EmailCompositionModal: React.FC<EmailCompositionModalProps> = ({
     const tableHTML = `
 <table border="1" cellpadding="10" cellspacing="0" style="border-collapse: collapse; width: 100%; max-width: 800px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 14px; margin: 20px 0; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
   <thead>
-     <tr style="background: #1e40af; color: white;">
+    <tr style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
       <th style="text-align: left; padding: 15px 12px; border: 1px solid #ddd; font-weight: 600; font-size: 15px; letter-spacing: 0.5px;">Field</th>
       <th style="text-align: left; padding: 15px 12px; border: 1px solid #ddd; font-weight: 600; font-size: 15px; letter-spacing: 0.5px;">Value</th>
     </tr>
   </thead>
   <tbody>
     ${tableRows.map(([field, value], index) => `
-    <tr style="background-color: #f8f9ff;">
+    <tr style="background-color: ${index % 2 === 0 ? '#f8f9ff' : 'white'}; transition: background-color 0.2s ease;">
       <td style="padding: 12px; border: 1px solid #e1e5e9; font-weight: 500; color: #2c3e50; width: 35%;">${field}</td>
       <td style="padding: 12px; border: 1px solid #e1e5e9; color: #34495e; word-break: break-word;">${value}</td>
     </tr>

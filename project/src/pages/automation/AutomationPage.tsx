@@ -1,11 +1,11 @@
+import { History, List, Plus, Settings } from 'lucide-react';
 import React, { useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
-import { Bot, Plus, Play, Settings, Workflow, List, History } from 'lucide-react';
+import { Link, useParams } from 'react-router-dom';
 import PageHeader from '../../components/layout/PageHeader';
 import Button from '../../components/ui/Button';
 import WorkflowBuilder from './WorkflowBuilder';
-import WorkflowList from './WorkflowList';
 import WorkflowHistory from './WorkflowHistory';
+import WorkflowList from './WorkflowList';
 
 const AutomationPage: React.FC = () => {
   const { section = 'workflows' } = useParams();
@@ -49,10 +49,14 @@ const AutomationPage: React.FC = () => {
         return <WorkflowHistory />;
       case 'settings':
         return (
-          <div className="bg-white rounded-lg shadow-md p-6">
-            <h2 className="text-xl font-semibold mb-4">Automation Settings</h2>
-            <p className="text-gray-600">Configure automation settings and preferences.</p>
-          </div>
+          <div className="bg-white dark:bg-[#1c273c] rounded-lg shadow-md p-6">
+    <h2 className="mb-4 text-xl font-semibold text-gray-900 dark:text-white">
+      Automation Settings
+    </h2>
+    <p className="text-gray-600 dark:text-gray-400">
+      Configure automation settings and preferences.
+    </p>
+  </div>
         );
       default:
         return (
@@ -78,7 +82,7 @@ const AutomationPage: React.FC = () => {
                     variant={section === 'workflows' ? 'primary' : 'outline'}
                     className="flex items-center gap-2"
                   >
-                    <List className="h-4 w-4" />
+                    <List className="w-4 h-4" />
                     Workflows
                   </Button>
                 </Link>
@@ -87,7 +91,7 @@ const AutomationPage: React.FC = () => {
                     variant={section === 'history' ? 'primary' : 'outline'}
                     className="flex items-center gap-2"
                   >
-                    <History className="h-4 w-4" />
+                    <History className="w-4 h-4" />
                     History
                   </Button>
                 </Link>
@@ -96,7 +100,7 @@ const AutomationPage: React.FC = () => {
                     variant={section === 'settings' ? 'primary' : 'outline'}
                     className="flex items-center gap-2"
                   >
-                    <Settings className="h-4 w-4" />
+                    <Settings className="w-4 h-4" />
                     Settings
                   </Button>
                 </Link>
@@ -104,7 +108,7 @@ const AutomationPage: React.FC = () => {
                   onClick={handleCreateNew}
                   className="flex items-center gap-2"
                 >
-                  <Plus className="h-4 w-4" />
+                  <Plus className="w-4 h-4" />
                   Create Workflow
                 </Button>
               </>

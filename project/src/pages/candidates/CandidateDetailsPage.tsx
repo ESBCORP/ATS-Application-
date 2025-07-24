@@ -614,7 +614,7 @@ const CandidateDetailsPage: React.FC = () => {
   if (loading) {
     return (
       <div className="flex items-center justify-center py-12">
-        <Loader className="h-8 w-8 animate-spin text-blue-600" />
+        <Loader className="w-8 h-8 animate-spin text-blue-600 dark:text-[#128178]" />
       </div>
     );
   }
@@ -670,7 +670,7 @@ const CandidateDetailsPage: React.FC = () => {
     <div className="mb-4">
       <label className="block text-sm font-medium text-gray-700 mb-1">{label}</label>
       <select
-        className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+        className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
         value={candidate[field]?.toString()}
         onChange={(e) => setCandidate(prev => ({ ...prev, [field]: e.target.value }))}
         disabled={!isEditing}
@@ -1028,7 +1028,7 @@ const CandidateDetailsPage: React.FC = () => {
                           }));
                         }}
                       >
-                        <Trash2 className="h-4 w-4" />
+                        <Trash2 className="w-4 h-4" />
                       </Button>
                     )}
                   </div>
@@ -1041,7 +1041,7 @@ const CandidateDetailsPage: React.FC = () => {
           </div>
 
           {/* Notes Section */}
-          <div className="rounded-lg bg-white p-6 shadow-md">
+          <div className="p-6 bg-white rounded-lg shadow-md">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-lg font-semibold text-gray-900">Notes</h2>
             </div>
@@ -1066,7 +1066,7 @@ const CandidateDetailsPage: React.FC = () => {
               </div>
 
               {isNewCandidate && (
-                <p className="text-sm text-gray-500 italic">
+                <p className="text-sm italic text-gray-500">
                   Please save the candidate first before adding notes.
                 </p>
               )}
@@ -1076,14 +1076,14 @@ const CandidateDetailsPage: React.FC = () => {
                 {(candidate.notes || []).map((note) => (
                   <div
                     key={note.id}
-                    className="rounded-lg border border-gray-200 p-4 bg-gray-50"
+                    className="p-4 border border-gray-200 rounded-lg bg-gray-50"
                   >
                     <div className="flex items-start justify-between">
                       <div className="flex-1">
                         <p className="text-sm text-gray-800 whitespace-pre-wrap">
                           {note.content}
                         </p>
-                        <div className="mt-2 flex items-center justify-between text-xs text-gray-500">
+                        <div className="flex items-center justify-between mt-2 text-xs text-gray-500">
                           <span>By {note.createdBy}</span>
                           <span>{new Date(note.createdAt).toLocaleString()}</span>
                         </div>
@@ -1095,14 +1095,14 @@ const CandidateDetailsPage: React.FC = () => {
                           onClick={() => handleRemoveNote(note.id)}
                           className="ml-4"
                         >
-                          <Trash2 className="h-4 w-4" />
+                          <Trash2 className="w-4 h-4" />
                         </Button>
                       )}
                     </div>
                   </div>
                 ))}
                 {(!candidate.notes || candidate.notes.length === 0) && (
-                  <p className="text-sm text-gray-500 text-center py-4">
+                  <p className="py-4 text-sm text-center text-gray-500">
                     No notes added yet.
                   </p>
                 )}
@@ -1115,12 +1115,12 @@ const CandidateDetailsPage: React.FC = () => {
       {/* Fixed Submit Button */}
       {!isEditing && showSubmitButton && (
         <div 
-          className="fixed bottom-0 right-0 left-20 z-10 bg-white border-t border-gray-200 py-4 px-6 transform transition-transform duration-300 ease-in-out"
+          className="fixed bottom-0 right-0 z-10 px-6 py-4 transition-transform duration-300 ease-in-out transform bg-white border-t border-gray-200 left-20"
           style={{
             transform: showSubmitButton ? 'translateY(0)' : 'translateY(100%)',
           }}
         >
-          <div className="container mx-auto max-w-7xl flex justify-end">
+          <div className="container flex justify-end mx-auto max-w-7xl">
             <Button
               onClick={handleSubmitCandidate}
               disabled={candidate.rtrStatus !== 'Received'}

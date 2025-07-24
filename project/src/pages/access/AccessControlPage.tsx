@@ -54,13 +54,13 @@ const AccessControlPage: React.FC = () => {
       {/* Access Control Cards */}
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
         {/* Role Security */}
-        <div className="rounded-lg bg-white p-6 shadow-md hover:shadow-lg transition-shadow">
+        <div className="rounded-lg bg-white dark:bg-gray-900 border dark:border-gray-700 p-6 shadow-md hover:shadow-lg transition-shadow">
           <div className="mb-4 flex items-center justify-center">
-            <div className="rounded-full bg-blue-50 p-4">
+            <div className="rounded-full bg-blue-100 dark:bg-blue-500/10 p-4">
               <Shield className="h-8 w-8 text-blue-600" />
             </div>
           </div>
-          <h3 className="mb-2 text-center text-xl font-semibold text-gray-900">Role Security</h3>
+          <h3 className="mb-2 text-center text-xl font-semibold text-gray-900 dark:text-white">Role Security</h3>
           <p className="text-center text-sm text-gray-600">
             Configure security access for different roles across all modules.
           </p>
@@ -76,13 +76,13 @@ const AccessControlPage: React.FC = () => {
         </div>
 
         {/* Email Sync Preferences */}
-        <div className="rounded-lg bg-white p-6 shadow-md hover:shadow-lg transition-shadow">
+        <div className="rounded-lg bg-white dark:bg-gray-900 border dark:border-gray-700 p-6 shadow-md hover:shadow-lg transition-shadow">
           <div className="mb-4 flex items-center justify-center">
-            <div className="rounded-full bg-blue-50 p-4">
+            <div className="rounded-full bg-blue-100 dark:bg-blue-500/10 p-4">
               <Mail className="h-8 w-8 text-blue-600" />
             </div>
           </div>
-          <h3 className="mb-2 text-center text-xl font-semibold text-gray-900">Email Sync Preferences</h3>
+          <h3 className="mb-2 text-center text-xl font-semibold text-gray-900 dark:text-white">Email Sync Preferences</h3>
           <p className="text-center text-sm text-gray-600">
             Configure email sync preferences for different roles and designations.
           </p>
@@ -92,13 +92,13 @@ const AccessControlPage: React.FC = () => {
         </div>
 
         {/* Security Access */}
-        <div className="rounded-lg bg-white p-6 shadow-md hover:shadow-lg transition-shadow">
+        <div className="rounded-lg bg-white dark:bg-gray-900 border dark:border-gray-700 p-6 shadow-md hover:shadow-lg transition-shadow">
           <div className="mb-4 flex items-center justify-center">
-            <div className="rounded-full bg-blue-50 p-4">
+            <div className="rounded-full bg-blue-100 dark:bg-blue-500/10 p-4">
               <Lock className="h-8 w-8 text-blue-600" />
             </div>
           </div>
-          <h3 className="mb-2 text-center text-xl font-semibold text-gray-900">Security Access</h3>
+          <h3 className="mb-2 text-center text-xl font-semibold text-gray-900 dark:text-white">Security Access</h3>
           <p className="text-center text-sm text-gray-600">
             Configure security access for activities, documents, etc.
           </p>
@@ -108,13 +108,13 @@ const AccessControlPage: React.FC = () => {
         </div>
 
         {/* Home Dashboard Access */}
-        <div className="rounded-lg bg-white p-6 shadow-md hover:shadow-lg transition-shadow">
+        <div className="rounded-lg bg-white dark:bg-gray-900 border dark:border-gray-700 p-6 shadow-md hover:shadow-lg transition-shadow">
           <div className="mb-4 flex items-center justify-center">
-            <div className="rounded-full bg-blue-50 p-4">
+            <div className="rounded-full bg-blue-100 dark:bg-blue-500/10 p-4">
               <LayoutDashboard className="h-8 w-8 text-blue-600" />
             </div>
           </div>
-          <h3 className="mb-2 text-center text-xl font-semibold text-gray-900">Home Dashboard Access</h3>
+          <h3 className="mb-2 text-center text-xl font-semibold text-gray-900 dark:text-white">Home Dashboard Access</h3>
           <p className="text-center text-sm text-gray-600">
             Configure home dashboard access and widgets for different roles, designations, and modules.
           </p>
@@ -126,27 +126,27 @@ const AccessControlPage: React.FC = () => {
 
       {/* Audit Log */}
       <div className="rounded-lg bg-white p-6 shadow-md">
-        <h2 className="mb-4 text-lg font-semibold text-gray-900">Recent Access Changes</h2>
+        <h2 className="mb-4 text-lg font-semibold text-gray-900 dark:text-white">Recent Access Changes</h2>
         <div className="space-y-4">
           <div className="flex items-center justify-between border-b pb-4">
             <div className="flex items-center">
               <Shield className="h-5 w-5 text-gray-500" />
               <div className="ml-3">
-                <p className="text-sm font-medium">Permission modified</p>
-                <p className="text-xs text-gray-500">Added 'Manage Reports' to Admin role</p>
+                <p className="text-sm font-medium text-gray-900 dark:text-white">Permission modified</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400">Added 'Manage Reports' to Admin role</p>
               </div>
             </div>
-            <span className="text-sm text-gray-500">1 day ago</span>
+            <span className="text-sm text-gray-500 dark:text-gray-400">1 day ago</span>
           </div>
           <div className="flex items-center justify-between">
             <div className="flex items-center">
               <Shield className="h-5 w-5 text-gray-500" />
               <div className="ml-3">
-                <p className="text-sm font-medium">New role created</p>
-                <p className="text-xs text-gray-500">Created 'Team Lead' role</p>
+                <p className="text-sm font-medium text-gray-900 dark:text-white">New role created</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400">Created 'Team Lead' role</p>
               </div>
             </div>
-            <span className="text-sm text-gray-500">3 days ago</span>
+            <span className="text-sm text-gray-500 dark:text-gray-400">3 days ago</span>
           </div>
         </div>
       </div>

@@ -56,7 +56,7 @@ const CandidatesTable: React.FC<CandidatesTableProps> = ({
               }
             });
           }}
-          className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+          className="text-blue-600 border-gray-300 rounded focus:ring-blue-500"
         />
       ),
       accessor: (candidate: Candidate) => (
@@ -67,7 +67,7 @@ const CandidatesTable: React.FC<CandidatesTableProps> = ({
             e.stopPropagation();
             handleCheckboxChange(candidate, e.target.checked);
           }}
-          className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+          className="text-blue-600 border-gray-300 rounded focus:ring-blue-500"
         />
       ),
       className: 'w-12'
@@ -86,7 +86,9 @@ const CandidatesTable: React.FC<CandidatesTableProps> = ({
             e.stopPropagation();
             navigate(`/candidates/details/${candidate.id}`);
           }}
-          className="text-blue-600 hover:text-blue-800 hover:underline"
+        
+            className="text-blue-600 hover:text-blue-800 hover:underline dark:text-[#29D3C0] dark:hover:text-[#29D3C0]"
+
         >
           {`${candidate.firstName} ${candidate.lastName}`}
         </button>

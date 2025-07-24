@@ -39,7 +39,7 @@ const JobsTable: React.FC<JobsTableProps> = ({ jobs }) => {
             const numericId = extractNumericId(job.id);
             navigate(`/jobs/details/${numericId}`);
           }}
-           className="text-blue-600 hover:text-blue-800 hover:underline"
+            className="text-blue-600 hover:text-blue-800 hover:underline dark:text-[#29D3C0] dark:hover:text-[#29D3C0]"
         >
           {job.id}
         </button>

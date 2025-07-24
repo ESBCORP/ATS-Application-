@@ -163,15 +163,18 @@ const CompanyProfilePage: React.FC = () => {
   });
 
   const renderSection = (title: string, icon: React.ReactNode, children: React.ReactNode) => (
-    <div className="bg-white rounded-lg shadow-md p-6 mb-6">
-      <div className="flex items-center mb-6">
-        <div className="flex items-center justify-center w-10 h-10 bg-blue-100 rounded-lg mr-3">
-          {icon}
-        </div>
-        <h2 className="text-xl font-semibold text-gray-900">{title}</h2>
-      </div>
-      {children}
+   <div className="p-6 mb-6 bg-white rounded-lg shadow-md dark:bg-gray-800 dark:shadow-lg">
+
+  <div className="flex items-center mb-6">
+    <div className="flex items-center justify-center w-10 h-10 mr-3 bg-blue-100 rounded-lg dark:bg-blue-900">
+      {icon}
     </div>
+    <h2 className="text-xl font-semibold text-gray-900 dark:text-white">{title}</h2>
+  </div>
+
+  {children}
+</div>
+
   );
 
   return (
@@ -195,7 +198,7 @@ const CompanyProfilePage: React.FC = () => {
                   isLoading={saving}
                   className="flex items-center gap-2"
                 >
-                  <Save className="h-4 w-4" />
+                  <Save className="w-4 h-4" />
                   Save Changes
                 </Button>
               </>
@@ -204,7 +207,7 @@ const CompanyProfilePage: React.FC = () => {
                 onClick={() => setIsEditing(true)}
                 className="flex items-center gap-2"
               >
-                <Edit className="h-4 w-4" />
+                <Edit className="w-4 h-4" />
                 Edit Profile
               </Button>
             )}
@@ -215,8 +218,8 @@ const CompanyProfilePage: React.FC = () => {
       {/* General Details Section */}
       {renderSection(
         'General Details',
-        <Building className="h-6 w-6 text-blue-600" />,
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <Building className="w-6 h-6 text-blue-600" />,
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           <Input
             label="Company Name"
             value={generalDetails.companyName}
@@ -243,74 +246,75 @@ const CompanyProfilePage: React.FC = () => {
             onChange={(e) => setGeneralDetails(prev => ({ ...prev, companyContact: e.target.value }))}
             disabled={!isEditing}
           />
-          <div className="md:col-span-2">
-            <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
-            <textarea
-              className="w-full min-h-[100px] rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 disabled:bg-gray-100 disabled:text-gray-500"
-              value={generalDetails.description}
-              onChange={(e) => setGeneralDetails(prev => ({ ...prev, description: e.target.value }))}
-              disabled={!isEditing}
-            />
-          </div>
+         <div className="md:col-span-2">
+        <label className="block mb-1 text-sm font-medium text-gray-700 dark:text-gray-300">Description</label>
+        <textarea
+          className="w-full min-h-[100px] rounded-md border border-gray-300 dark:border-gray-600 px-3 py-2 text-sm text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 disabled:bg-gray-100 dark:disabled:bg-gray-700 disabled:text-gray-500 dark:disabled:text-gray-400"
+          value={generalDetails.description}
+          onChange={(e) => setGeneralDetails(prev => ({ ...prev, description: e.target.value }))}
+          disabled={!isEditing}
+        />
+      </div>
+
         </div>
       )}
 
-      {/* Branding Section */}
-      {renderSection(
-        'Branding',
-        <Globe className="h-6 w-6 text-blue-600" />,
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {/* Company Logo */}
+     {/* Branding Section */}
+{renderSection(
+  'Branding',
+  <Globe className="w-6 h-6 text-blue-600" />,
+  <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+    {/* Company Logo */}
+    <div>
+      <label className="block mb-3 text-sm font-medium text-gray-700 dark:text-gray-300">Company Logo</label>
+      <div className="flex items-center space-x-4">
+        <div className="flex items-center justify-center w-20 h-20 overflow-hidden bg-gray-100 rounded-lg dark:bg-gray-700">
+          {branding.companyLogoUrl ? (
+            <img 
+              src={branding.companyLogoUrl} 
+              alt="Company Logo" 
+              className="object-contain w-full h-full"
+            />
+          ) : (
+            <Building className="w-8 h-8 text-gray-400 dark:text-gray-300" />
+          )}
+        </div>
+        {isEditing && (
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-3">Company Logo</label>
-            <div className="flex items-center space-x-4">
-              <div className="w-20 h-20 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden">
-                {branding.companyLogoUrl ? (
-                  <img 
-                    src={branding.companyLogoUrl} 
-                    alt="Company Logo" 
-                    className="w-full h-full object-contain"
-                  />
-                ) : (
-                  <Building className="h-8 w-8 text-gray-400" />
-                )}
-              </div>
-              {isEditing && (
-                <div>
-                  <input
-                    type="file"
-                    id="company-logo"
-                    className="hidden"
-                    accept="image/*"
-                    onChange={(e) => {
-                      const file = e.target.files?.[0];
-                      if (file) handleFileUpload('companyLogo', file);
-                    }}
-                  />
-                  <label htmlFor="company-logo">
-                    <Button as="span" variant="outline" size="sm" className="flex items-center gap-2">
-                      <Upload className="h-4 w-4" />
-                      Upload Logo
-                    </Button>
-                  </label>
-                </div>
-              )}
-            </div>
+            <input
+              type="file"
+              id="company-logo"
+              className="hidden"
+              accept="image/*"
+              onChange={(e) => {
+                const file = e.target.files?.[0];
+                if (file) handleFileUpload('companyLogo', file);
+              }}
+            />
+            <label htmlFor="company-logo">
+              <Button as="span" variant="outline" size="sm" className="flex items-center gap-2">
+                <Upload className="w-4 h-4" />
+                Upload Logo
+              </Button>
+            </label>
           </div>
+        )}
+      </div>
+    </div>
 
-          {/* Social Logo */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-3">Social Logo</label>
-            <div className="flex items-center space-x-4">
-              <div className="w-20 h-20 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden">
-                {branding.socialLogoUrl ? (
-                  <img 
+    {/* Social Logo */}
+    <div>
+      <label className="block mb-3 text-sm font-medium text-gray-700 dark:text-gray-300">Social Logo</label>
+      <div className="flex items-center space-x-4">
+        <div className="flex items-center justify-center w-20 h-20 overflow-hidden bg-gray-100 rounded-lg dark:bg-gray-700">
+          {branding.socialLogoUrl ? (          
+            <img 
                     src={branding.socialLogoUrl} 
                     alt="Social Logo" 
-                    className="w-full h-full object-contain"
+                    className="object-contain w-full h-full"
                   />
                 ) : (
-                  <Globe className="h-8 w-8 text-gray-400" />
+                  <Globe className="w-8 h-8 text-gray-400" />
                 )}
               </div>
               {isEditing && (
@@ -327,7 +331,7 @@ const CompanyProfilePage: React.FC = () => {
                   />
                   <label htmlFor="social-logo">
                     <Button as="span" variant="outline" size="sm" className="flex items-center gap-2">
-                      <Upload className="h-4 w-4" />
+                      <Upload className="w-4 h-4" />
                       Upload Logo
                     </Button>
                   </label>
@@ -339,46 +343,46 @@ const CompanyProfilePage: React.FC = () => {
       )}
 
       {/* Billing Information Section */}
-      {renderSection(
-        'Billing Information',
-        <CreditCard className="h-6 w-6 text-blue-600" />,
-        <div className="space-y-8">
-          {/* Basic Billing Info */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Currency</label>
-              <select
-                className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 disabled:bg-gray-100"
-                value={billingInfo.currency}
-                onChange={(e) => setBillingInfo(prev => ({ ...prev, currency: e.target.value }))}
-                disabled={!isEditing}
-              >
-                <option value="USD">USD - US Dollar</option>
-                <option value="EUR">EUR - Euro</option>
-                <option value="GBP">GBP - British Pound</option>
-                <option value="CAD">CAD - Canadian Dollar</option>
-              </select>
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Billing Language</label>
-              <select
-                className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 disabled:bg-gray-100"
-                value={billingInfo.billingLanguage}
-                onChange={(e) => setBillingInfo(prev => ({ ...prev, billingLanguage: e.target.value }))}
-                disabled={!isEditing}
-              >
-                <option value="English">English</option>
-                <option value="Spanish">Spanish</option>
-                <option value="French">French</option>
-                <option value="German">German</option>
-              </select>
-            </div>
-          </div>
+{renderSection(
+  'Billing Information',
+  <CreditCard className="w-6 h-6 text-blue-600" />,
+  <div className="space-y-8">
+    {/* Basic Billing Info */}
+    <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+      <div>
+        <label className="block mb-1 text-sm font-medium text-gray-700 dark:text-gray-300">Currency</label>
+        <select
+          className="w-full px-3 py-2 text-sm text-gray-900 bg-white border border-gray-300 rounded-md dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 disabled:bg-gray-100 dark:disabled:bg-gray-700 disabled:text-gray-500 dark:disabled:text-gray-400"
+          value={billingInfo.currency}
+          onChange={(e) => setBillingInfo(prev => ({ ...prev, currency: e.target.value }))}
+          disabled={!isEditing}
+        >
+          <option value="USD">USD - US Dollar</option>
+          <option value="EUR">EUR - Euro</option>
+          <option value="GBP">GBP - British Pound</option>
+          <option value="CAD">CAD - Canadian Dollar</option>
+        </select>
+      </div>
+      <div>
+        <label className="block mb-1 text-sm font-medium text-gray-700 dark:text-gray-300">Billing Language</label>
+        <select
+className="w-full px-3 py-2 text-sm text-gray-900 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 disabled:bg-gray-100 disabled:text-gray-500 dark:text-gray-100 dark:bg-gray-800 dark:border-gray-600 dark:disabled:bg-gray-700 dark:disabled:text-gray-400"
+          value={billingInfo.billingLanguage}
+          onChange={(e) => setBillingInfo(prev => ({ ...prev, billingLanguage: e.target.value }))}
+          disabled={!isEditing}
+        >
+          <option value="English">English</option>
+          <option value="Spanish">Spanish</option>
+          <option value="French">French</option>
+          <option value="German">German</option>
+        </select>
+      </div>
+    </div>
 
           {/* Billing Contact */}
           <div>
-            <h3 className="text-lg font-medium text-gray-900 mb-4">Billing Contact</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+           <h3 className="mb-4 text-lg font-semibold text-gray-900 dark:text-white">Billing Contact</h3>
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
               <Input
                 label="Name"
                 value={billingInfo.billingContact.name}
@@ -473,26 +477,29 @@ const CompanyProfilePage: React.FC = () => {
             </div>
           </div>
 
-          {/* Sold To Contact */}
-          <div>
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-medium text-gray-900">Sold To Contact</h3>
-              {isEditing && (
-                <div className="flex items-center">
-                  <input
-                    type="checkbox"
-                    id="same-as-bill-to"
-                    checked={billingInfo.soldToContact.sameAsBillTo}
-                    onChange={(e) => handleSameAsBillToChange(e.target.checked)}
-                    className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-                  />
-                  <label htmlFor="same-as-bill-to" className="ml-2 text-sm text-gray-700">
-                    Same as Bill To Contact
-                  </label>
-                </div>
+         {/* Sold To Contact */}
+<div>
+  <div className="flex items-center justify-between mb-4">
+    <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Sold To Contact</h3>
+    {isEditing && (
+      <div className="flex items-center">
+        <input
+          type="checkbox"
+          id="same-as-bill-to"
+          checked={billingInfo.soldToContact.sameAsBillTo}
+          onChange={(e) => handleSameAsBillToChange(e.target.checked)}
+          className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500 dark:border-gray-600"
+        />
+        <label
+          htmlFor="same-as-bill-to"
+          className="ml-2 text-sm text-gray-700 dark:text-gray-300"
+        >
+          Same as Bill To Contact
+        </label>
+      </div>
               )}
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
               <Input
                 label="First Name"
                 value={billingInfo.soldToContact.firstName}
@@ -587,30 +594,30 @@ const CompanyProfilePage: React.FC = () => {
             </div>
           </div>
 
-          {/* Payment Method */}
-          <div>
-            <h3 className="text-lg font-medium text-gray-900 mb-4">Payment Method</h3>
-            
-            {/* Full Address Section */}
-            <div className="mb-6">
-              <div className="flex items-center justify-between mb-4">
-                <h4 className="text-md font-medium text-gray-800">Full Address</h4>
-                {isEditing && (
-                  <div className="flex items-center">
-                    <input
-                      type="checkbox"
-                      id="payment-same-as-bill-to"
-                      checked={billingInfo.paymentMethod.sameAsBillTo}
-                      onChange={(e) => handlePaymentSameAsBillToChange(e.target.checked)}
-                      className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-                    />
-                    <label htmlFor="payment-same-as-bill-to" className="ml-2 text-sm text-gray-700">
-                      Same as Bill To Contact
-                    </label>
-                  </div>
+         {/* Payment Method */}
+        <div>
+          <h3 className="mb-4 text-lg font-semibold text-gray-900 dark:text-white">Payment Method</h3>
+
+          {/* Full Address Section */}
+          <div className="mb-6">
+            <div className="flex items-center justify-between mb-4">
+              <h4 className="font-medium text-gray-800 dark:text-gray-200 text-md">Full Address</h4>
+              {isEditing && (
+                <div className="flex items-center">
+                  <input
+                    type="checkbox"
+                    id="payment-same-as-bill-to"
+                    checked={billingInfo.paymentMethod.sameAsBillTo}
+                    onChange={(e) => handlePaymentSameAsBillToChange(e.target.checked)}
+                    className="w-4 h-4 text-blue-600 border-gray-300 rounded dark:border-gray-600 focus:ring-blue-500"
+                  />
+                  <label htmlFor="payment-same-as-bill-to" className="ml-2 text-sm text-gray-700 dark:text-gray-300">
+                    Same as Bill To Contact
+                  </label>
+                </div>
                 )}
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                 <Input
                   label="Address"
                   value={billingInfo.paymentMethod.address}
@@ -670,8 +677,8 @@ const CompanyProfilePage: React.FC = () => {
 
             {/* Card Information */}
             <div>
-              <h4 className="text-md font-medium text-gray-800 mb-4">Card Information</h4>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <h4 className="mb-4 font-medium text-gray-800 text-md">Card Information</h4>
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                 <Input
                   label="Cardholder Name (exactly as printed on card) *"
                   value={billingInfo.paymentMethod.cardholderName}
@@ -705,42 +712,47 @@ const CompanyProfilePage: React.FC = () => {
                   maxLength={4}
                   required
                 />
-                <div className="grid grid-cols-2 gap-3">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
-                      Expiration Month *
-                    </label>
-                    <select
-                      className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 disabled:bg-gray-100"
-                      value={billingInfo.paymentMethod.expirationMonth}
-                      onChange={(e) => setBillingInfo(prev => ({
-                        ...prev,
-                        paymentMethod: { ...prev.paymentMethod, expirationMonth: e.target.value }
-                      }))}
-                      disabled={!isEditing}
-                      required
-                    >
-                      {monthOptions.map(month => (
-                        <option key={month.value} value={month.value}>
-                          {month.label}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
-                      Expiration Year *
-                    </label>
-                    <select
-                      className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 disabled:bg-gray-100"
-                      value={billingInfo.paymentMethod.expirationYear}
-                      onChange={(e) => setBillingInfo(prev => ({
-                        ...prev,
-                        paymentMethod: { ...prev.paymentMethod, expirationYear: e.target.value }
-                      }))}
-                      disabled={!isEditing}
-                      required
-                    >
+               <div className="grid grid-cols-2 gap-3">
+  <div>
+    <label className="block mb-1 text-sm font-medium text-gray-700 dark:text-gray-300">
+      Expiration Month *
+    </label>
+    <select
+      className="w-full px-3 py-2 text-sm text-gray-900 bg-white border border-gray-300 rounded-md dark:text-gray-100 dark:bg-gray-800 dark:border-gray-600 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 disabled:bg-gray-100 dark:disabled:bg-gray-700 disabled:text-gray-500 dark:disabled:text-gray-400"
+      value={billingInfo.paymentMethod.expirationMonth}
+      onChange={(e) =>
+        setBillingInfo(prev => ({
+          ...prev,
+          paymentMethod: { ...prev.paymentMethod, expirationMonth: e.target.value }
+        }))
+      }
+      disabled={!isEditing}
+      required
+    >
+      {monthOptions.map(month => (
+        <option key={month.value} value={month.value}>
+          {month.label}
+        </option>
+      ))}
+    </select>
+  </div>
+
+  <div>
+    <label className="block mb-1 text-sm font-medium text-gray-700 dark:text-gray-300">
+      Expiration Year *
+    </label>
+    <select
+      className="w-full px-3 py-2 text-sm text-gray-900 bg-white border border-gray-300 rounded-md dark:text-gray-100 dark:bg-gray-800 dark:border-gray-600 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 disabled:bg-gray-100 dark:disabled:bg-gray-700 disabled:text-gray-500 dark:disabled:text-gray-400"
+      value={billingInfo.paymentMethod.expirationYear}
+      onChange={(e) =>
+        setBillingInfo(prev => ({
+          ...prev,
+          paymentMethod: { ...prev.paymentMethod, expirationYear: e.target.value }
+        }))
+      }
+      disabled={!isEditing}
+      required
+    >
                       {yearOptions.map(year => (
                         <option key={year.value} value={year.value}>
                           {year.label}
@@ -758,8 +770,8 @@ const CompanyProfilePage: React.FC = () => {
       {/* Locale Information Section */}
       {renderSection(
         'Locale Information',
-        <MapPin className="h-6 w-6 text-blue-600" />,
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <MapPin className="w-6 h-6 text-blue-600" />,
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           <Input
             label="Company Name"
             value={localeInfo.companyName}
@@ -786,15 +798,16 @@ const CompanyProfilePage: React.FC = () => {
             onChange={(e) => setLocaleInfo(prev => ({ ...prev, companyContact: e.target.value }))}
             disabled={!isEditing}
           />
-          <div className="md:col-span-2">
-            <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
-            <textarea
-              className="w-full min-h-[100px] rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 disabled:bg-gray-100 disabled:text-gray-500"
-              value={localeInfo.description}
-              onChange={(e) => setLocaleInfo(prev => ({ ...prev, description: e.target.value }))}
-              disabled={!isEditing}
-            />
-          </div>
+         <div className="md:col-span-2">
+  <label className="block mb-1 text-sm font-medium text-gray-700 dark:text-gray-300">Description</label>
+  <textarea
+    className="w-full min-h-[100px] rounded-md border border-gray-300 dark:border-gray-600 px-3 py-2 text-sm text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 disabled:bg-gray-100 dark:disabled:bg-gray-700 disabled:text-gray-500 dark:disabled:text-gray-400"
+    value={localeInfo.description}
+    onChange={(e) => setLocaleInfo(prev => ({ ...prev, description: e.target.value }))}
+    disabled={!isEditing}
+  />
+</div>
+
         </div>
       )}
     </div>

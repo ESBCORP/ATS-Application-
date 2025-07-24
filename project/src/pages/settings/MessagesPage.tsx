@@ -173,14 +173,14 @@ const MessagesPage: React.FC = () => {
     };
 
     return (
-      <div className="bg-white rounded-lg shadow-lg p-6">
-        <h3 className="text-lg font-semibold mb-4">
+      <div className="p-6 bg-white rounded-lg shadow-lg">
+        <h3 className="mb-4 text-lg font-semibold">
           {message?.id ? 'Edit Message Template' : 'Create New Message Template'}
         </h3>
         
         <div className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Template Name</label>
+            <label className="block mb-1 text-sm font-medium text-gray-700">Template Name</label>
             <input
               type="text"
               value={formData.name}
@@ -191,7 +191,7 @@ const MessagesPage: React.FC = () => {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Trigger Event</label>
+            <label className="block mb-1 text-sm font-medium text-gray-700">Trigger Event</label>
             <select
               value={formData.trigger}
               onChange={(e) => setFormData(prev => ({ ...prev, trigger: e.target.value }))}
@@ -207,7 +207,7 @@ const MessagesPage: React.FC = () => {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Message Content</label>
+            <label className="block mb-1 text-sm font-medium text-gray-700">Message Content</label>
             <textarea
               value={formData.message}
               onChange={(e) => setFormData(prev => ({ ...prev, message: e.target.value }))}
@@ -215,7 +215,7 @@ const MessagesPage: React.FC = () => {
               className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               placeholder="Enter your message here. Use {{variableName}} for dynamic content."
             />
-            <div className="text-xs text-gray-500 mt-1">
+            <div className="mt-1 text-xs text-gray-500">
               Available variables: candidateName, companyName, jobTitle, timeSlot1, timeSlot2, timeSlot3
             </div>
           </div>
@@ -225,7 +225,7 @@ const MessagesPage: React.FC = () => {
               <label className="block text-sm font-medium text-gray-700">Response Options</label>
               <button
                 onClick={addResponse}
-                className="text-blue-600 hover:text-blue-800 text-sm flex items-center"
+                className="flex items-center text-sm text-blue-600 hover:text-blue-800"
               >
                 <Plus className="w-4 h-4 mr-1" />
                 Add Response
@@ -288,13 +288,13 @@ const MessagesPage: React.FC = () => {
               id="active"
               checked={formData.active}
               onChange={(e) => setFormData(prev => ({ ...prev, active: e.target.checked }))}
-              className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 mr-2"
+              className="w-4 h-4 mr-2 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
             />
             <label htmlFor="active" className="text-sm text-gray-700">Active (messages will be sent)</label>
           </div>
         </div>
 
-        <div className="flex justify-end space-x-2 mt-6">
+        <div className="flex justify-end mt-6 space-x-2">
           <button
             onClick={onCancel}
             className="px-4 py-2 text-gray-600 border border-gray-300 rounded-md hover:bg-gray-50"
@@ -303,7 +303,7 @@ const MessagesPage: React.FC = () => {
           </button>
           <button
             onClick={() => onSave(formData)}
-            className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+            className="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700"
           >
             Save Template
           </button>
@@ -394,8 +394,8 @@ const MessagesPage: React.FC = () => {
     const connections = getConnections();
     
     return (
-      <div className="bg-white rounded-lg shadow-lg p-6">
-        <div className="flex justify-between items-center mb-6">
+      <div className="p-6 bg-white rounded-lg shadow-lg">
+        <div className="flex items-center justify-between mb-6">
           <h2 className="text-lg font-semibold">Message Flow Visualization</h2>
           <Button variant="outline" onClick={() => setShowWorkflow(false)}>Close</Button>
         </div>
@@ -427,15 +427,15 @@ const MessagesPage: React.FC = () => {
                       {message.active ? 'Active' : 'Inactive'}
                     </span>
                   </div>
-                  <p className="text-xs text-gray-600 mb-2">Trigger: {message.trigger}</p>
+                  <p className="mb-2 text-xs text-gray-600">Trigger: {message.trigger}</p>
                   <p className="text-xs text-gray-800 line-clamp-2">
                     {message.message.substring(0, 100)}...
                   </p>
                   
                   {message.responses && message.responses.length > 0 && (
-                    <div className="mt-2 flex flex-wrap gap-1">
+                    <div className="flex flex-wrap gap-1 mt-2">
                       {message.responses.map((response, idx) => (
-                        <span key={idx} className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">
+                        <span key={idx} className="px-2 py-1 text-xs text-blue-800 bg-blue-100 rounded">
                           {response.option}
                         </span>
                       ))}
@@ -493,7 +493,7 @@ const MessagesPage: React.FC = () => {
                       height="30"
                     >
                       <div className="flex items-center justify-center w-full h-full">
-                        <span className="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded-full">
+                        <span className="px-2 py-1 text-xs text-gray-800 bg-gray-100 rounded-full">
                           {conn.label}
                         </span>
                       </div>
@@ -531,43 +531,46 @@ const MessagesPage: React.FC = () => {
         }
       />
 
-      {/* Stats Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <div className="bg-white rounded-lg shadow p-6">
-          <div className="flex items-center">
-            <MessageSquare className="w-8 h-8 text-blue-600" />
-            <div className="ml-4">
-              <p className="text-sm font-medium text-gray-600">Total Messages Sent</p>
-              <p className="text-2xl font-bold text-gray-900">1,247</p>
-            </div>
-          </div>
-        </div>
-        <div className="bg-white rounded-lg shadow p-6">
-          <div className="flex items-center">
-            <Users className="w-8 h-8 text-green-600" />
-            <div className="ml-4">
-              <p className="text-sm font-medium text-gray-600">Response Rate</p>
-              <p className="text-2xl font-bold text-gray-900">73%</p>
-            </div>
-          </div>
-        </div>
-        <div className="bg-white rounded-lg shadow p-6">
-          <div className="flex items-center">
-            <Clock className="w-8 h-8 text-yellow-600" />
-            <div className="ml-4">
-              <p className="text-sm font-medium text-gray-600">Avg Response Time</p>
-              <p className="text-2xl font-bold text-gray-900">12m</p>
-            </div>
-          </div>
-        </div>
-        <div className="bg-white rounded-lg shadow p-6">
-          <div className="flex items-center">
-            <BarChart3 className="w-8 h-8 text-purple-600" />
-            <div className="ml-4">
-              <p className="text-sm font-medium text-gray-600">Interviews Scheduled</p>
-              <p className="text-2xl font-bold text-gray-900">89</p>
-            </div>
-          </div>
+     {/* Stats Cards */}
+<div className="grid grid-cols-1 gap-6 md:grid-cols-4">
+  <div className="p-6 bg-white rounded-lg shadow dark:bg-gray-800">
+    <div className="flex items-center">
+      <MessageSquare className="w-8 h-8 text-blue-600 dark:text-[#29D3C0]" />
+      <div className="ml-4">
+        <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Total Messages Sent</p>
+        <p className="text-2xl font-bold text-gray-900 dark:text-white">1,247</p>
+      </div>
+    </div>
+  </div>
+
+  <div className="p-6 bg-white rounded-lg shadow dark:bg-gray-800">
+    <div className="flex items-center">
+      <Users className="w-8 h-8 text-green-600 dark:text-[#29D3C0]" />
+      <div className="ml-4">
+        <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Response Rate</p>
+        <p className="text-2xl font-bold text-gray-900 dark:text-white">73%</p>
+      </div>
+    </div>
+  </div>
+
+  <div className="p-6 bg-white rounded-lg shadow dark:bg-gray-800">
+    <div className="flex items-center">
+      <Clock className="w-8 h-8 text-yellow-600 dark:text-[#29D3C0]" />
+      <div className="ml-4">
+        <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Avg Response Time</p>
+        <p className="text-2xl font-bold text-gray-900 dark:text-white">12m</p>
+      </div>
+    </div>
+  </div>
+
+  <div className="p-6 bg-white rounded-lg shadow dark:bg-gray-800">
+    <div className="flex items-center">
+      <BarChart3 className="w-8 h-8 text-purple-600 dark:text-[#29D3C0]" />
+      <div className="ml-4">
+        <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Interviews Scheduled</p>
+        <p className="text-2xl font-bold text-gray-900 dark:text-white">89</p>
+      </div>
+    </div>
         </div>
       </div>
 
@@ -577,7 +580,7 @@ const MessagesPage: React.FC = () => {
       ) : (
         <div className="bg-white rounded-lg shadow">
           <div className="border-b border-gray-200">
-            <nav className="-mb-px flex space-x-8 px-6">
+            <nav className="flex px-6 -mb-px space-x-8">
               {[
                 { id: 'messages', label: 'Message Templates', icon: MessageSquare },
                 { id: 'settings', label: 'Bot Settings', icon: Settings },
@@ -604,7 +607,7 @@ const MessagesPage: React.FC = () => {
             {/* Message Templates Tab */}
             {activeTab === 'messages' && (
               <div>
-                <div className="flex justify-between items-center mb-6">
+                <div className="flex items-center justify-between mb-6">
                   <h2 className="text-lg font-semibold">Message Templates</h2>
                   <Button
                     onClick={() => setEditingMessage({})}
@@ -624,10 +627,10 @@ const MessagesPage: React.FC = () => {
                 ) : (
                   <div className="space-y-4">
                     {messageTemplates.map((template) => (
-                      <div key={template.id} className="border border-gray-200 rounded-lg p-4">
-                        <div className="flex justify-between items-start">
+                      <div key={template.id} className="p-4 border border-gray-200 rounded-lg">
+                        <div className="flex items-start justify-between">
                           <div className="flex-1">
-                            <div className="flex items-center space-x-3 mb-2">
+                            <div className="flex items-center mb-2 space-x-3">
                               <h3 className="font-medium text-gray-900">{template.name}</h3>
                               <span className={`px-2 py-1 text-xs rounded-full ${
                                 template.active ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'
@@ -638,22 +641,22 @@ const MessagesPage: React.FC = () => {
                                 Sent {template.sentCount} times
                               </span>
                             </div>
-                            <p className="text-sm text-gray-600 mb-2">Trigger: {template.trigger}</p>
-                            <p className="text-sm text-gray-800 bg-gray-50 p-3 rounded border whitespace-pre-line">
+                            <p className="mb-2 text-sm text-gray-600">Trigger: {template.trigger}</p>
+                            <p className="p-3 text-sm text-gray-800 whitespace-pre-line border rounded bg-gray-50">
                               {template.message}
                             </p>
                             
                             {template.responses && template.responses.length > 0 && (
                               <div className="mt-3">
-                                <p className="text-xs font-medium text-gray-700 mb-2">Response Options:</p>
-                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
+                                <p className="mb-2 text-xs font-medium text-gray-700">Response Options:</p>
+                                <div className="grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3">
                                   {template.responses.map((response, idx) => (
-                                    <div key={idx} className="text-xs bg-blue-50 text-blue-800 p-2 rounded flex items-center">
+                                    <div key={idx} className="flex items-center p-2 text-xs text-blue-800 rounded bg-blue-50">
                                       <span className="font-medium">{response.option}</span>
-                                      <ArrowRight className="h-3 w-3 mx-1" />
+                                      <ArrowRight className="w-3 h-3 mx-1" />
                                       <span>{response.action}</span>
                                       {response.nextMessageId && (
-                                        <span className="ml-1 text-xs bg-blue-200 px-1 rounded">
+                                        <span className="px-1 ml-1 text-xs bg-blue-200 rounded">
                                           → {messageTemplates.find(m => m.id === response.nextMessageId)?.name || response.nextMessageId}
                                         </span>
                                       )}
@@ -663,7 +666,7 @@ const MessagesPage: React.FC = () => {
                               </div>
                             )}
                           </div>
-                          <div className="flex space-x-2 ml-4">
+                          <div className="flex ml-4 space-x-2">
                             <button
                               onClick={() => setEditingMessage(template)}
                               className="p-2 text-blue-600 hover:text-blue-800"
@@ -690,9 +693,9 @@ const MessagesPage: React.FC = () => {
               <div className="space-y-6">
                 <h2 className="text-lg font-semibold">Bot Settings</h2>
                 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Company Name</label>
+                    <label className="block mb-2 text-sm font-medium text-gray-700">Company Name</label>
                     <input
                       type="text"
                       value={botSettings.companyName}
@@ -702,7 +705,7 @@ const MessagesPage: React.FC = () => {
                   </div>
                   
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Default Job Position</label>
+                    <label className="block mb-2 text-sm font-medium text-gray-700">Default Job Position</label>
                     <input
                       type="text"
                       value={botSettings.defaultPosition}
@@ -712,7 +715,7 @@ const MessagesPage: React.FC = () => {
                   </div>
                   
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Phone Number</label>
+                    <label className="block mb-2 text-sm font-medium text-gray-700">Phone Number</label>
                     <input
                       type="text"
                       value={botSettings.phoneNumber}
@@ -722,7 +725,7 @@ const MessagesPage: React.FC = () => {
                   </div>
                   
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Business Hours</label>
+                    <label className="block mb-2 text-sm font-medium text-gray-700">Business Hours</label>
                     <input
                       type="text"
                       value={botSettings.businessHours}
@@ -738,7 +741,7 @@ const MessagesPage: React.FC = () => {
                     id="autoReply"
                     checked={botSettings.autoReply}
                     onChange={(e) => setBotSettings(prev => ({ ...prev, autoReply: e.target.checked }))}
-                    className="mr-3 h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                    className="w-4 h-4 mr-3 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
                   />
                   <label htmlFor="autoReply" className="text-sm text-gray-700">
                     Enable automatic replies (responds immediately to candidate messages)
@@ -757,21 +760,21 @@ const MessagesPage: React.FC = () => {
                 
                 <div className="space-y-4">
                   {variables.map((variable, index) => (
-                    <div key={index} className="border border-gray-200 rounded-lg p-4">
-                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div key={index} className="p-4 border border-gray-200 rounded-lg">
+                      <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
                         <div>
-                          <label className="block text-sm font-medium text-gray-700 mb-1">Variable Name</label>
-                          <code className="text-sm bg-gray-100 px-2 py-1 rounded">
+                          <label className="block mb-1 text-sm font-medium text-gray-700">Variable Name</label>
+                          <code className="px-2 py-1 text-sm bg-gray-100 rounded">
                             &#123;&#123;{variable.name}&#125;&#125;
                           </code>
                         </div>
                         <div>
-                          <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
+                          <label className="block mb-1 text-sm font-medium text-gray-700">Description</label>
                           <p className="text-sm text-gray-600">{variable.description}</p>
                         </div>
                         <div>
-                          <label className="block text-sm font-medium text-gray-700 mb-1">Example</label>
-                          <p className="text-sm text-gray-800 font-medium">{variable.example}</p>
+                          <label className="block mb-1 text-sm font-medium text-gray-700">Example</label>
+                          <p className="text-sm font-medium text-gray-800">{variable.example}</p>
                         </div>
                       </div>
                     </div>
@@ -783,7 +786,7 @@ const MessagesPage: React.FC = () => {
             {/* Time Slots Tab */}
             {activeTab === 'scheduling' && (
               <div className="space-y-6">
-                <div className="flex justify-between items-center">
+                <div className="flex items-center justify-between">
                   <h2 className="text-lg font-semibold">Available Time Slots</h2>
                   <Button className="flex items-center">
                     <Plus className="w-4 h-4 mr-2" />
@@ -793,7 +796,7 @@ const MessagesPage: React.FC = () => {
                 
                 <div className="space-y-4">
                   {timeSlots.map((slot) => (
-                    <div key={slot.id} className="flex items-center justify-between border border-gray-200 rounded-lg p-4">
+                    <div key={slot.id} className="flex items-center justify-between p-4 border border-gray-200 rounded-lg">
                       <div className="flex items-center space-x-4">
                         <input
                           type="checkbox"
@@ -804,7 +807,7 @@ const MessagesPage: React.FC = () => {
                             );
                             setTimeSlots(newSlots);
                           }}
-                          className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                          className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
                         />
                         <span className={`${slot.available ? 'text-gray-900' : 'text-gray-500 line-through'}`}>
                           {slot.slot}
