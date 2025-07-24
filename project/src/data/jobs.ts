@@ -1,0 +1,41 @@
+import { Job } from '../types';
+
+export const jobs: Job[] = [
+  {
+    id: 'OOJ-4361',
+    title: 'Salesforce Developer',
+    status: 'Active',
+    payRate: 58.50,
+    createdDate: '2025-04-05',
+    recruiters: ['Sarah Johnson'],
+    city: 'JACKSONVILLE',
+    state: 'Florida',
+    country: 'USA',
+    customer: 'ESB',
+    accountManager: 'Michael Brown',
+    customerType: 'Prime Vendor - IP',
+    employmentType: 'Contract',
+    workType: 'Onsite',
+    experienceLevel: 'Mid',
+    positions: 1,
+    primarySkills: ['Salesforce', 'Apex', 'Lightning'],
+    secondarySkills: ['JavaScript', 'HTML', 'CSS'],
+    languages: ['English'],
+    qualifications: ['Bachelor\'s Degree', 'Salesforce Certification'],
+    industry: 'Technology',
+    priority: 'High',
+    projectName: 'ESB Digital Transformation',
+    projectId: 'PRJ-001',
+    clientJobId: 'ESB-SF-001',
+    showClientInfo: false,
+    placementType: 'Contractual',
+    clientPayType: 'Monthly',
+    jobType: 'Contractual',
+    payType: 'Hourly',
+    isPreferred: true,
+    jobDomain: 'CRM Development',
+    description: 'We are seeking an experienced Salesforce Developer to join our team...',
+    recruiterInstructions: 'Please focus on candidates with recent Salesforce certifications.'
+  },
+  // ... (keep other existing jobs)
+];
